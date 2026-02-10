@@ -392,9 +392,8 @@ const styles = {
     fontFamily: "-apple-system, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif",
   },
   appShell: {
-    width: 393, maxWidth: "100%", minHeight: "100vh", position: "relative",
+    width: "100%", maxWidth: 480, minHeight: "100vh", position: "relative",
     background: theme.beige, overflow: "hidden",
-    boxShadow: "0 0 40px rgba(0,0,0,0.08)",
   },
   scrollArea: {
     height: "100vh", overflowY: "auto", overflowX: "hidden",
