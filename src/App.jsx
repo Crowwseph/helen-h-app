@@ -1283,7 +1283,8 @@ export default function HelenHApp() {
     scrollRef.current?.scrollTo(0, 0);
   };
   const selectTrip = (trip) => { setSelectedTrip(trip); setScreen("detail"); scrollRef.current?.scrollTo(0, 0); };
-  const selectSpecies = (sp) => { setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
+  const prevScreenRef = useRef("species");
+  const selectSpecies = (sp) => { prevScreenRef.current = screen === "home" ? "home" : "species"; setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
   const selectVessel = (v) => { setSelectedVessel(v); setScreen("vesselDetail"); scrollRef.current?.scrollTo(0, 0); };
   const startBooking = () => { setScreen("booking"); scrollRef.current?.scrollTo(0, 0); };
 
@@ -1306,7 +1307,7 @@ export default function HelenHApp() {
           {screen === "fleet" && <FleetScreen onSelectVessel={selectVessel} />}
           {screen === "vesselDetail" && <VesselDetailScreen vessel={selectedVessel} onBack={() => { setScreen("fleet"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "species" && <SpeciesScreen onSelectSpecies={selectSpecies} />}
-          {screen === "speciesDetail" && <SpeciesDetailScreen species={selectedSpecies} onBack={() => { setScreen("species"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
+          {screen === "speciesDetail" && <SpeciesDetailScreen species={selectedSpecies} onBack={() => { const dest = prevScreenRef.current; setScreen(dest); setTab(dest); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "contact" && <ContactScreen />}
         </div>
         <div style={styles.tabBar}>
