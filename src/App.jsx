@@ -566,7 +566,7 @@ const Button = ({ children, variant = "primary", size = "md", style, onClick, di
 };
 
 // ─── Home Screen ────────────────────────────────────────────────────────────
-const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenWeather, onOpenAnglers, favorites, onToggleFavorite }) => {
+const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenWeather, onOpenAnglers, favorites, onToggleFavorite, weather }) => {
   const featuredTrips = TRIPS.filter(t => [5, 2, 11].includes(t.id));
   const [reviewIdx, setReviewIdx] = useState(0);
 
@@ -602,7 +602,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
       </div>
 
       {/* Weather Widget */}
-      <WeatherWidget onClick={onOpenWeather} />
+      <WeatherWidget onClick={onOpenWeather} weather={weather} />
 
       {/* Featured Trips - with real photos and favorites */}
       <SectionHeader title="Featured Trips" subtitle="Hand-picked adventures" action="See All" onAction={() => onNavigate("trips")} />
@@ -1450,26 +1450,7 @@ const ContactScreen = () => (
 );
 
 // ─── Weather Widget ─────────────────────────────────────────────────────────
-const WeatherWidget = ({ onClick }) => {
-  const [weather, setWeather] = useState(null);
-  useEffect(() => {
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=41.65&longitude=-70.28&current=temperature_2m,wind_speed_10m,weather_code&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York&forecast_days=1")
-      .then(r => r.json()).then(d => {
-        const c = d.current;
-        const wc = c.weather_code;
-        let condition = "Clear";
-        if (wc >= 1 && wc <= 3) condition = "Partly Cloudy";
-        if (wc >= 45 && wc <= 48) condition = "Foggy";
-        if (wc >= 51 && wc <= 67) condition = "Rainy";
-        if (wc >= 71 && wc <= 77) condition = "Snowy";
-        if (wc >= 80 && wc <= 82) condition = "Showers";
-        if (wc >= 95) condition = "Stormy";
-        setWeather({ temp: Math.round(c.temperature_2m), wind: Math.round(c.wind_speed_10m), condition, sunrise: d.daily.sunrise[0].split("T")[1], sunset: d.daily.sunset[0].split("T")[1] });
-      }).catch(() => {
-        const bite = getWhatsBiting();
-        setWeather({ temp: parseInt(bite.temp), wind: 12, condition: "Clear", sunrise: "6:15", sunset: "7:45" });
-      });
-  }, []);
+const WeatherWidget = ({ onClick, weather }) => {
   if (!weather) return null;
   return (
     <div style={{ padding: "0 20px", marginBottom: 20 }}>
@@ -1860,7 +1841,27 @@ export default function HelenHApp() {
   const [selectedVessel, setSelectedVessel] = useState(null);
   const [screen, setScreen] = useState("home");
   const [favorites, setFavorites] = useState(new Set());
+  const [weather, setWeather] = useState(null);
   const scrollRef = useRef(null);
+
+  useEffect(() => {
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=41.65&longitude=-70.28&current=temperature_2m,wind_speed_10m,weather_code&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York&forecast_days=1")
+      .then(r => r.json()).then(d => {
+        const c = d.current;
+        const wc = c.weather_code;
+        let condition = "Clear";
+        if (wc >= 1 && wc <= 3) condition = "Partly Cloudy";
+        if (wc >= 45 && wc <= 48) condition = "Foggy";
+        if (wc >= 51 && wc <= 67) condition = "Rainy";
+        if (wc >= 71 && wc <= 77) condition = "Snowy";
+        if (wc >= 80 && wc <= 82) condition = "Showers";
+        if (wc >= 95) condition = "Stormy";
+        setWeather({ temp: Math.round(c.temperature_2m), wind: Math.round(c.wind_speed_10m), condition, sunrise: d.daily.sunrise[0].split("T")[1], sunset: d.daily.sunset[0].split("T")[1] });
+      }).catch(() => {
+        const bite = getWhatsBiting();
+        setWeather({ temp: parseInt(bite.temp), wind: 12, condition: "Clear", sunrise: "6:15", sunset: "7:45" });
+      });
+  }, []);
 
   const toggleFavorite = (tripId) => {
     setFavorites(prev => {
@@ -1898,7 +1899,7 @@ export default function HelenHApp() {
     <div style={styles.outerWrap}>
       <div style={styles.appShell}>
         <div ref={scrollRef} style={styles.scrollArea}>
-          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenWeather={openWeather} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} />}
+          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenWeather={openWeather} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} weather={weather} />}
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
