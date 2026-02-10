@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 // ─── Helen H Brand Logo (SVG recreation of their circular badge logo) ───────
 const HelenHLogo = ({ size = 48 }) => (
@@ -402,25 +402,6 @@ const REVIEWS = [
   { name: "Linda & Ray T.", trip: "3-Day Giant Fluke Hunt", rating: 5, text: "Three days of fishing heaven. The overnight in Nantucket was a bonus. Caught my personal best fluke at 9.5 lbs.", date: "Aug 2025" },
 ];
 
-const getWhatsBiting = () => {
-  const month = new Date().getMonth();
-  const biteData = [
-    { month: 0, species: "Winter Cod", status: "Slow", note: "Deep water cod on wrecks. Bundle up!", color: "#6B6B7A", temp: "38" },
-    { month: 1, species: "Winter Cod", status: "Slow", note: "Pre-season prep underway. Early bookings open.", color: "#6B6B7A", temp: "36" },
-    { month: 2, species: "Tautog", status: "Warming Up", note: "Blackfish season opener approaching. Green crabs ready.", color: "#3A3A3A", temp: "42" },
-    { month: 3, species: "Flounder", status: "Good", note: "Spring flounder running in the bays. Light tackle fun!", color: "#7A6A3A", temp: "48" },
-    { month: 4, species: "Porgies & Sea Bass", status: "Hot", note: "Season opener! Humpback porgies thick in Nantucket Sound.", color: "#7A7A9A", temp: "55" },
-    { month: 5, species: "Striped Bass", status: "On Fire", note: "Stripers blitzing bait along the Cape. Best bite of the year!", color: "#4A6A4A", temp: "62" },
-    { month: 6, species: "Fluke & Tuna", status: "On Fire", note: "Fluke limits coming easy. First tuna showing in the canyons.", color: "#8B7B4A", temp: "68" },
-    { month: 7, species: "Yellowfin Tuna", status: "On Fire", note: "Peak tuna season! Canyon trips loading up. Book now.", color: "#1B4F8A", temp: "72" },
-    { month: 8, species: "Tuna & Mahi", status: "Hot", note: "Mahi-mahi crashing bait offshore. Tuna still hot.", color: "#1A7A3A", temp: "70" },
-    { month: 9, species: "Haddock & Tautog", status: "Hot", note: "Fall bite is on. George's Bank haddock and inshore blackfish.", color: "#6B6B7A", temp: "60" },
-    { month: 10, species: "Tautog", status: "Good", note: "Last call for blackfish. Big tog on the jetties and wrecks.", color: "#3A3A3A", temp: "50" },
-    { month: 11, species: "Winter Cod", status: "Moderate", note: "Deep water cod trips winding down. Gift cards available!", color: "#6B6B7A", temp: "42" },
-  ];
-  return biteData[month];
-};
-
 const GALLERY_PHOTOS = [
   { src: "hero", caption: "Heading out of Hyannis Harbor", category: "fleet" },
   { src: "boats", caption: "The Helen H Fleet at dock", category: "fleet" },
@@ -454,10 +435,7 @@ const ANGLERS_OF_THE_WEEK = [
 // ─── Theme (Helen H exact brand colors) ─────────────────────────────────────
 const theme = {
   blue: "#326BC5",       // Primary brand blue from website
-  blueDark: "#2A5AAA",
-  blueLight: "#4A85DD",
   navy: "#1A2A4A",
-  navyDark: "#0F1A2E",
   beige: "#F0F0ED",      // Background beige from website
   text: "#333333",       // Body text from website
   white: "#FFFFFF",
@@ -566,7 +544,7 @@ const Button = ({ children, variant = "primary", size = "md", style, onClick, di
 };
 
 // ─── Home Screen ────────────────────────────────────────────────────────────
-const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenWeather, onOpenAnglers, favorites, onToggleFavorite, weather }) => {
+const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenAnglers, favorites, onToggleFavorite }) => {
   const featuredTrips = TRIPS.filter(t => [5, 2, 11].includes(t.id));
   const [reviewIdx, setReviewIdx] = useState(0);
 
@@ -776,6 +754,13 @@ const TripsScreen = ({ onSelectTrip, favorites, onToggleFavorite }) => {
         ))}
       </div>
       <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 12 }}>
+        {filtered.length === 0 && (
+          <div style={{ textAlign: "center", padding: "40px 20px" }}>
+            <Icons.Heart size={36} color={theme.gray300} />
+            <div style={{ fontSize: 16, fontWeight: 700, color: theme.navy, marginTop: 12 }}>{filter === "favorites" ? "No saved trips yet" : "No trips match this filter"}</div>
+            <div style={{ fontSize: 13, color: theme.gray400, marginTop: 6 }}>{filter === "favorites" ? "Tap the heart icon on any trip to save it here." : "Try a different filter to find trips."}</div>
+          </div>
+        )}
         {filtered.map(trip => (
           <Card key={trip.id} onClick={() => onSelectTrip(trip)} style={{ display: "flex", gap: 14, padding: 0, overflow: "hidden", position: "relative" }}>
             <div style={{ width: 90, minHeight: 100, flexShrink: 0, position: "relative", overflow: "hidden" }}>
@@ -896,16 +881,30 @@ const BookingScreen = ({ trip, onBack, onConfirm }) => {
   const [addRod, setAddRod] = useState(false);
   const [step, setStep] = useState(1);
   const [confirmed, setConfirmed] = useState(false);
+  const [errors, setErrors] = useState({});
   const total = (trip.price * guests) + (addRod && trip.rodRental > 0 ? trip.rodRental * guests : 0);
 
   const [availableDates] = useState(() => {
     const dates = []; const now = new Date();
-    for (let i = 3; i < 60; i += Math.floor(Math.random() * 5) + 2) {
+    for (let i = 3; i < 60; i += 3) {
       const d = new Date(now); d.setDate(d.getDate() + i);
       if (d.getDay() !== 2) dates.push(d.toISOString().split("T")[0]);
     }
     return dates;
   });
+
+  const validateStep2 = () => {
+    const errs = {};
+    if (!name.trim()) errs.name = "Name is required";
+    if (!email.trim()) errs.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) errs.email = "Enter a valid email address";
+    if (!phone.trim()) errs.phone = "Phone number is required";
+    else if (phone.replace(/\D/g, "").length < 7) errs.phone = "Enter a valid phone number";
+    setErrors(errs);
+    return Object.keys(errs).length === 0;
+  };
+
+  const errorStyle = { fontSize: 12, color: theme.danger, marginTop: 4 };
 
   const inputStyle = { width: "100%", padding: "14px 16px", borderRadius: 12, border: `1.5px solid ${theme.gray200}`, fontSize: 15, fontFamily: "inherit", background: theme.white, color: theme.navy, outline: "none", boxSizing: "border-box" };
 
@@ -915,8 +914,8 @@ const BookingScreen = ({ trip, onBack, onConfirm }) => {
         <div style={{ width: 80, height: 80, borderRadius: "50%", background: `${theme.success}15`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
           <Icons.Check size={40} color={theme.success} />
         </div>
-        <div style={{ fontSize: 24, fontWeight: 800, color: theme.navy, marginBottom: 8 }}>Booking Confirmed!</div>
-        <div style={{ fontSize: 15, color: theme.gray400, marginBottom: 24, lineHeight: 1.5 }}>Your {trip.name} trip has been reserved. Check your email for details.</div>
+        <div style={{ fontSize: 24, fontWeight: 800, color: theme.navy, marginBottom: 8 }}>Inquiry Submitted!</div>
+        <div style={{ fontSize: 15, color: theme.gray400, marginBottom: 24, lineHeight: 1.5 }}>Your request for the {trip.name} trip has been sent. Our crew will reach out to confirm availability and finalize your booking.</div>
         <Card style={{ width: "100%", textAlign: "left", marginBottom: 20 }}>
           {[{ l: "Trip", v: trip.name }, { l: "Date", v: date }, { l: "Guests", v: guests }].map((r, i) => (
             <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${theme.gray100}` }}>
@@ -1005,13 +1004,25 @@ const BookingScreen = ({ trip, onBack, onConfirm }) => {
       {step === 2 && (
         <div style={{ padding: "0 20px" }}>
           <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 24 }}>
-            <div><label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Full Name</label><input style={inputStyle} value={name} onChange={e => setName(e.target.value)} placeholder="John Smith" /></div>
-            <div><label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Email</label><input style={inputStyle} type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="john@example.com" /></div>
-            <div><label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Phone</label><input style={inputStyle} type="tel" value={phone} onChange={e => setPhone(e.target.value)} placeholder="(508) 555-0123" /></div>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Full Name</label>
+              <input style={{ ...inputStyle, ...(errors.name ? { borderColor: theme.danger } : {}) }} value={name} onChange={e => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: undefined })); }} placeholder="John Smith" />
+              {errors.name && <div style={errorStyle}>{errors.name}</div>}
+            </div>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Email</label>
+              <input style={{ ...inputStyle, ...(errors.email ? { borderColor: theme.danger } : {}) }} type="email" value={email} onChange={e => { setEmail(e.target.value); if (errors.email) setErrors(prev => ({ ...prev, email: undefined })); }} placeholder="john@example.com" />
+              {errors.email && <div style={errorStyle}>{errors.email}</div>}
+            </div>
+            <div>
+              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Phone</label>
+              <input style={{ ...inputStyle, ...(errors.phone ? { borderColor: theme.danger } : {}) }} type="tel" value={phone} onChange={e => { setPhone(e.target.value); if (errors.phone) setErrors(prev => ({ ...prev, phone: undefined })); }} placeholder="(508) 555-0123" />
+              {errors.phone && <div style={errorStyle}>{errors.phone}</div>}
+            </div>
           </div>
           <div style={{ display: "flex", gap: 10 }}>
-            <Button variant="ghost" size="lg" style={{ flex: 1 }} onClick={() => setStep(1)}>Back</Button>
-            <Button variant="primary" size="lg" style={{ flex: 2 }} onClick={() => setStep(3)} disabled={!name || !email || !phone}>Continue</Button>
+            <Button variant="ghost" size="lg" style={{ flex: 1 }} onClick={() => { setErrors({}); setStep(1); }}>Back</Button>
+            <Button variant="primary" size="lg" style={{ flex: 2 }} onClick={() => { if (validateStep2()) setStep(3); }}>Continue</Button>
           </div>
         </div>
       )}
@@ -1088,6 +1099,7 @@ const FleetScreen = ({ onSelectVessel }) => (
 );
 
 const VesselDetailScreen = ({ vessel, onBack, onSelectTrip }) => {
+  if (!vessel) return <div style={{ padding: 40, textAlign: "center", color: theme.gray400 }}>Vessel not found. <span onClick={onBack} style={{ color: theme.blue, cursor: "pointer" }}>Go back</span></div>;
   const v = vessel;
   const vesselTrips = TRIPS.filter(t => t.vessel === v.name || (v.name === "Capt. John & Son II" && t.vessel === "Capt. John"));
   return (
@@ -1256,6 +1268,7 @@ const SpeciesScreen = ({ onSelectSpecies }) => (
 );
 
 const SpeciesDetailScreen = ({ species, onBack, onSelectTrip }) => {
+  if (!species) return <div style={{ padding: 40, textAlign: "center", color: theme.gray400 }}>Species not found. <span onClick={onBack} style={{ color: theme.blue, cursor: "pointer" }}>Go back</span></div>;
   const trips = TRIPS.filter(t => t.species.some(s => s.toLowerCase().includes(species.name.toLowerCase().split(" ")[0])));
   const sp = species;
   return (
@@ -1445,177 +1458,6 @@ const ContactScreen = () => (
     <div style={{ height: 20 }} />
   </div>
 );
-
-// ─── Weather Widget ─────────────────────────────────────────────────────────
-const WeatherWidget = ({ onClick, weather }) => {
-  if (!weather) return null;
-  return (
-    <div style={{ padding: "0 20px", marginBottom: 20 }}>
-      <Card onClick={onClick} style={{ background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, padding: 0, overflow: "hidden", cursor: "pointer" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 16px" }}>
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: 1 }}>Hyannis Harbor</div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginTop: 4 }}>
-              <span style={{ fontSize: 32, fontWeight: 800, color: theme.white }}>{weather.temp}</span>
-              <span style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }}>°F</span>
-            </div>
-            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", marginTop: 2 }}>{weather.condition}</div>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <Icons.Wind size={14} color="rgba(255,255,255,0.7)" />
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>{weather.wind} mph</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <Icons.Sun size={14} color="rgba(255,255,255,0.7)" />
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>{weather.sunrise}</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              <Icons.Clock size={14} color="rgba(255,255,255,0.7)" />
-              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>Set {weather.sunset}</span>
-            </div>
-          </div>
-        </div>
-        <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", padding: "8px 16px", display: "flex", justifyContent: "center", alignItems: "center", gap: 4 }}>
-          <span style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.5)" }}>Tap for full forecast</span>
-        </div>
-      </Card>
-    </div>
-  );
-};
-
-// ─── Weather Detail Screen ──────────────────────────────────────────────────
-const WeatherDetailScreen = ({ onBack }) => {
-  const [forecast, setForecast] = useState(null);
-  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-  const getCondition = (wc) => {
-    if (wc === 0) return "Clear";
-    if (wc <= 3) return "Partly Cloudy";
-    if (wc >= 45 && wc <= 48) return "Foggy";
-    if (wc >= 51 && wc <= 67) return "Rainy";
-    if (wc >= 71 && wc <= 77) return "Snowy";
-    if (wc >= 80 && wc <= 82) return "Showers";
-    if (wc >= 95) return "Stormy";
-    return "Clear";
-  };
-
-  const getFishability = (wind, code) => {
-    if (code >= 95 || wind > 25) return { label: "Poor", color: theme.danger };
-    if (code >= 51 || wind > 18) return { label: "Fair", color: theme.gold };
-    if (wind > 12) return { label: "Good", color: theme.blue };
-    return { label: "Excellent", color: theme.success };
-  };
-
-  useEffect(() => {
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=41.65&longitude=-70.28&current=temperature_2m,wind_speed_10m,wind_direction_10m,weather_code,relative_humidity_2m&daily=temperature_2m_max,temperature_2m_min,wind_speed_10m_max,weather_code,sunrise,sunset,precipitation_probability_max&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York&forecast_days=7")
-      .then(r => r.json()).then(d => {
-        const dirs = ["N","NE","E","SE","S","SW","W","NW"];
-        const windDir = dirs[Math.round(d.current.wind_direction_10m / 45) % 8];
-        setForecast({
-          current: { temp: Math.round(d.current.temperature_2m), wind: Math.round(d.current.wind_speed_10m), windDir, condition: getCondition(d.current.weather_code), humidity: d.current.relative_humidity_2m, code: d.current.weather_code },
-          daily: d.daily.time.map((t, i) => ({
-            date: t, day: dayNames[new Date(t + "T12:00:00").getDay()],
-            high: Math.round(d.daily.temperature_2m_max[i]), low: Math.round(d.daily.temperature_2m_min[i]),
-            wind: Math.round(d.daily.wind_speed_10m_max[i]), code: d.daily.weather_code[i],
-            condition: getCondition(d.daily.weather_code[i]),
-            rain: d.daily.precipitation_probability_max[i],
-            sunrise: d.daily.sunrise[i].split("T")[1], sunset: d.daily.sunset[i].split("T")[1],
-          }))
-        });
-      }).catch(() => {});
-  }, []);
-
-  if (!forecast) return (
-    <div>
-      <WaveBackground height={140}>
-        <div style={{ padding: "20px 20px 50px" }}>
-          <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
-            <Icons.ChevronLeft size={20} color="white" /><span style={{ fontSize: 14, color: "white" }}>Back</span>
-          </div>
-          <div style={{ fontSize: 28, fontWeight: 800, color: theme.white }}>Weather</div>
-        </div>
-      </WaveBackground>
-      <div style={{ padding: 40, textAlign: "center", color: theme.gray400 }}>Loading forecast...</div>
-    </div>
-  );
-
-  const today = forecast.daily[0];
-  const fishability = getFishability(forecast.current.wind, forecast.current.code);
-
-  return (
-    <div>
-      <div style={{ background: `linear-gradient(160deg, ${theme.navy} 0%, ${theme.blue} 100%)`, padding: "20px 20px 30px" }}>
-        <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4, marginBottom: 16 }}>
-          <Icons.ChevronLeft size={20} color="white" /><span style={{ fontSize: 14, color: "white" }}>Back</span>
-        </div>
-        <div style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.5)", textTransform: "uppercase", letterSpacing: 1.5 }}>Hyannis Harbor, MA</div>
-        <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginTop: 8 }}>
-          <span style={{ fontSize: 56, fontWeight: 800, color: "white" }}>{forecast.current.temp}</span>
-          <span style={{ fontSize: 20, color: "rgba(255,255,255,0.6)" }}>°F</span>
-        </div>
-        <div style={{ fontSize: 16, color: "rgba(255,255,255,0.8)", marginTop: 4 }}>{forecast.current.condition}</div>
-        <div style={{ fontSize: 13, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>H: {today.high}° L: {today.low}°</div>
-      </div>
-
-      <div style={{ padding: "16px 20px 0", marginTop: -12, position: "relative", zIndex: 2 }}>
-        {/* Fishing Conditions */}
-        <Card style={{ marginBottom: 14, border: `2px solid ${fishability.color}30` }}>
-          <div style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: theme.gray400, marginBottom: 10 }}>Fishing Conditions</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-            <div style={{ width: 50, height: 50, borderRadius: 14, background: `${fishability.color}15`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <Icons.Fish size={26} color={fishability.color} />
-            </div>
-            <div>
-              <div style={{ fontSize: 22, fontWeight: 800, color: fishability.color }}>{fishability.label}</div>
-              <div style={{ fontSize: 12, color: theme.gray500, marginTop: 2 }}>
-                {fishability.label === "Excellent" ? "Calm seas, perfect for all trips" : fishability.label === "Good" ? "Light chop, great for most trips" : fishability.label === "Fair" ? "Moderate conditions, inshore recommended" : "Rough seas, check before heading out"}
-              </div>
-            </div>
-          </div>
-        </Card>
-
-        {/* Current Conditions Grid */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 14 }}>
-          {[
-            { icon: <Icons.Wind size={18} color={theme.blue} />, label: "Wind", value: `${forecast.current.wind} mph ${forecast.current.windDir}` },
-            { icon: <Icons.Droplet size={18} color={theme.blue} />, label: "Humidity", value: `${forecast.current.humidity}%` },
-            { icon: <Icons.Sun size={18} color={theme.gold} />, label: "Sunrise", value: today.sunrise },
-            { icon: <Icons.Clock size={18} color={theme.gold} />, label: "Sunset", value: today.sunset },
-          ].map((item, i) => (
-            <Card key={i} style={{ padding: 12, display: "flex", gap: 10, alignItems: "center" }}>
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: theme.beige, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.icon}</div>
-              <div>
-                <div style={{ fontSize: 10, color: theme.gray400, fontWeight: 600, textTransform: "uppercase", letterSpacing: 0.5 }}>{item.label}</div>
-                <div style={{ fontSize: 14, fontWeight: 700, color: theme.navy }}>{item.value}</div>
-              </div>
-            </Card>
-          ))}
-        </div>
-
-        {/* 7-Day Forecast */}
-        <Card style={{ marginBottom: 20 }}>
-          <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 14 }}>7-Day Forecast</div>
-          {forecast.daily.map((day, i) => {
-            const fish = getFishability(day.wind, day.code);
-            return (
-              <div key={i} style={{ display: "flex", alignItems: "center", padding: "10px 0", borderTop: i > 0 ? `1px solid ${theme.gray100}` : "none", gap: 8 }}>
-                <div style={{ width: 36, fontSize: 13, fontWeight: 600, color: i === 0 ? theme.blue : theme.navy }}>{i === 0 ? "Today" : day.day}</div>
-                <div style={{ flex: 1, fontSize: 12, color: theme.gray500 }}>{day.condition}</div>
-                <div style={{ fontSize: 10, fontWeight: 600, color: fish.color, background: `${fish.color}15`, padding: "3px 8px", borderRadius: 6 }}>{fish.label}</div>
-                <div style={{ width: 55, textAlign: "right" }}>
-                  <span style={{ fontSize: 14, fontWeight: 700, color: theme.navy }}>{day.high}°</span>
-                  <span style={{ fontSize: 12, color: theme.gray400 }}> {day.low}°</span>
-                </div>
-              </div>
-            );
-          })}
-        </Card>
-      </div>
-      <div style={{ height: 20 }} />
-    </div>
-  );
-};
 
 // ─── Gallery Screen ─────────────────────────────────────────────────────────
 const GalleryScreen = ({ onBack }) => {
@@ -1837,34 +1679,18 @@ export default function HelenHApp() {
   const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [selectedVessel, setSelectedVessel] = useState(null);
   const [screen, setScreen] = useState("home");
-  const [favorites, setFavorites] = useState(new Set());
-  const [weather, setWeather] = useState(null);
+  const [favorites, setFavorites] = useState(() => {
+    try { const saved = localStorage.getItem("helenH_favorites"); return saved ? new Set(JSON.parse(saved)) : new Set(); }
+    catch { return new Set(); }
+  });
   const scrollRef = useRef(null);
-
-  useEffect(() => {
-    fetch("https://api.open-meteo.com/v1/forecast?latitude=41.65&longitude=-70.28&current=temperature_2m,wind_speed_10m,weather_code&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York&forecast_days=1")
-      .then(r => r.json()).then(d => {
-        const c = d.current;
-        const wc = c.weather_code;
-        let condition = "Clear";
-        if (wc >= 1 && wc <= 3) condition = "Partly Cloudy";
-        if (wc >= 45 && wc <= 48) condition = "Foggy";
-        if (wc >= 51 && wc <= 67) condition = "Rainy";
-        if (wc >= 71 && wc <= 77) condition = "Snowy";
-        if (wc >= 80 && wc <= 82) condition = "Showers";
-        if (wc >= 95) condition = "Stormy";
-        setWeather({ temp: Math.round(c.temperature_2m), wind: Math.round(c.wind_speed_10m), condition, sunrise: d.daily.sunrise[0].split("T")[1], sunset: d.daily.sunset[0].split("T")[1] });
-      }).catch(() => {
-        const bite = getWhatsBiting();
-        setWeather({ temp: parseInt(bite.temp), wind: 12, condition: "Clear", sunrise: "6:15", sunset: "7:45" });
-      });
-  }, []);
 
   const toggleFavorite = (tripId) => {
     setFavorites(prev => {
       const next = new Set(prev);
       if (next.has(tripId)) next.delete(tripId);
       else next.add(tripId);
+      try { localStorage.setItem("helenH_favorites", JSON.stringify([...next])); } catch {}
       return next;
     });
   };
@@ -1875,13 +1701,11 @@ export default function HelenHApp() {
   };
   const selectTrip = (trip) => { setSelectedTrip(trip); setScreen("detail"); scrollRef.current?.scrollTo(0, 0); };
   const prevScreenRef = useRef("species");
-  const prevTripScreenRef = useRef("trips");
   const selectSpecies = (sp) => { prevScreenRef.current = screen === "home" ? "home" : "species"; setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
   const selectVessel = (v) => { setSelectedVessel(v); setScreen("vesselDetail"); scrollRef.current?.scrollTo(0, 0); };
   const startBooking = () => { setScreen("booking"); scrollRef.current?.scrollTo(0, 0); };
   const openGallery = () => { setScreen("gallery"); scrollRef.current?.scrollTo(0, 0); };
   const openMap = () => { setScreen("map"); scrollRef.current?.scrollTo(0, 0); };
-  const openWeather = () => { setScreen("weather"); scrollRef.current?.scrollTo(0, 0); };
   const openAnglers = () => { setScreen("anglers"); scrollRef.current?.scrollTo(0, 0); };
 
   const tabs = [
@@ -1896,7 +1720,7 @@ export default function HelenHApp() {
     <div style={styles.outerWrap}>
       <div style={styles.appShell}>
         <div ref={scrollRef} style={styles.scrollArea}>
-          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenWeather={openWeather} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} weather={weather} />}
+          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
@@ -1906,7 +1730,6 @@ export default function HelenHApp() {
           {screen === "speciesDetail" && <SpeciesDetailScreen species={selectedSpecies} onBack={() => { const dest = prevScreenRef.current; setScreen(dest); setTab(dest); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "gallery" && <GalleryScreen onBack={() => { navigate("home"); }} />}
           {screen === "map" && <MapScreen onBack={() => { navigate("home"); }} onSelectTrip={selectTrip} />}
-          {screen === "weather" && <WeatherDetailScreen onBack={() => { navigate("home"); }} />}
           {screen === "anglers" && <AnglerScreen onBack={() => { navigate("home"); }} />}
           {screen === "contact" && <ContactScreen />}
         </div>
