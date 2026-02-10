@@ -422,12 +422,12 @@ const SPECIES_INFO = [
 ];
 
 const REVIEWS = [
-  { name: "Mike R.", trip: "Offshore Tuna Charter", rating: 5, text: "Best fishing trip I've ever been on. Captain knew exactly where the tuna were running. Landed a 45lb yellowfin!", date: "Aug 2025" },
-  { name: "Sarah & Tom K.", trip: "Family Fluke Adventure", rating: 5, text: "Perfect family trip. The crew was amazing with our kids. We caught our limit of fluke by noon!", date: "Jul 2025" },
-  { name: "Dave L.", trip: "Nantucket Overnight", rating: 4, text: "The overnight trip to the canyons was worth every penny. Non-stop action from sunset to sunrise.", date: "Sep 2025" },
-  { name: "Jennifer M.", trip: "Spring Porgies & Sea Bass", rating: 5, text: "First time deep sea fishing and I'm hooked! The crew made everything so easy and fun.", date: "May 2025" },
-  { name: "Chris P.", trip: "Striped Bass Blitz", rating: 5, text: "We hit the striper blitz right at dawn. Must have caught 30 fish between the group. Incredible experience!", date: "Jun 2025" },
-  { name: "Linda & Ray T.", trip: "3-Day Giant Fluke Hunt", rating: 5, text: "Three days of fishing heaven. The overnight in Nantucket was a bonus. Caught my personal best fluke at 9.5 lbs.", date: "Aug 2025" },
+  { name: "Gigi Lorio", trip: "Striped Bass", rating: 5, text: "This was the BEST striped bass fishing trip!! My family went and we caught 30+ fish, 6+ fish a person and all minus a few were over the \"keep\" size, they were huge! The biggest fish we had was 42in long. We would do this trip a million times again!", date: "Google Review" },
+  { name: "Joe Coulter", trip: "Helen H Fleet", rating: 5, text: "Captain Joe, Matt and the team are top notch! Literally the best crew I've ever fished with. I am already excited about my next trip with them. That is how enjoyable this trip was. I highly recommend fishing with the Helen H!", date: "Google Review" },
+  { name: "Matthew K", trip: "Family Fishing", rating: 5, text: "Best Family Experience on \"party boat\" for Family and Kids. The whole Helen H fleet, from Starfish to the Helen H itself. If you want to introduce young ones to fishing in a positive, safe, educational environment Helen H is the place to go on Cape Cod.", date: "Google Review" },
+  { name: "Robert Lamb", trip: "Starfish Charter", rating: 5, text: "My son and I just went on a striper charter on the Starfish. What a great time. Captain and the first mate were fantastic, knowledgeable, professional, and super friendly. Highly recommend. We'll see them again next year.", date: "Google Review" },
+  { name: "Jackie Schultz", trip: "Family Fishing Trip", rating: 5, text: "Such a great experience on the three hour family fishing trip. The crew was helpful, enthusiastic and professional. I came with my mother and two young children and had a great time catching tons of fish! Highly recommend!", date: "Google Review" },
+  { name: "David Roberto", trip: "Helen H Fleet", rating: 5, text: "Great captain and crew. Always work hard to put you on fish. Fast and clean boat.", date: "Google Review" },
 ];
 
 const GALLERY_PHOTOS = [
@@ -664,7 +664,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
 
       {/* Customer Reviews */}
       <div style={{ padding: "28px 20px 0" }}>
-        <SectionHeader title="What Anglers Say" subtitle="Recent reviews" />
+        <SectionHeader title="What Anglers Say" subtitle="Google reviews" />
         <Card style={{ padding: 0, overflow: "hidden" }}>
           <div style={{ padding: "18px 18px 14px" }}>
             <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 8 }}>
