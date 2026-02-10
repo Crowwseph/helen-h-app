@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-// AttractionSuite booking integration — v2
+// AttractionSuite booking integration — v3
 // ─── Helen H Brand Logo (SVG recreation of their circular badge logo) ───────
 const HelenHLogo = ({ size = 48 }) => (
   <svg width={size} height={size} viewBox="0 0 100 100" fill="none">
