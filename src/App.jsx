@@ -426,17 +426,20 @@ const GALLERY_PHOTOS = [
   { src: "boats", caption: "The Helen H Fleet at dock", category: "fleet" },
   { src: "vesselHelenH", caption: "Helen H — Flagship 100' Super Cruiser", category: "fleet" },
   { src: "vesselAngler", caption: "The Angler — 75' Jet-Drive Cruiser", category: "fleet" },
-  { src: "sunset", caption: "Sunset over Nantucket Sound", category: "scenery" },
-  { src: "dock", caption: "Morning at Hyannis Harbor", category: "scenery" },
+  { src: "heroAlt", caption: "Offshore on a calm day", category: "scenery" },
+  { src: "ferry", caption: "Cape Cod waterfront", category: "scenery" },
+  { src: "charter", caption: "Charter day on the water", category: "scenery" },
   { src: "tuna2", caption: "Yellowfin tuna — canyon trophy", category: "catches" },
   { src: "fluke2", caption: "Summer fluke off Nantucket", category: "catches" },
-  { src: "striper2", caption: "Striped bass on the rip", category: "catches" },
+  { src: "stripers", caption: "Striped bass on Cape Cod Bay", category: "catches" },
   { src: "seabass2", caption: "Black sea bass on the wreck", category: "catches" },
   { src: "carl", caption: "Carl with a nice scup!", category: "catches" },
   { src: "cod", caption: "Haddock from George's Bank", category: "catches" },
-  { src: "stripers", caption: "Striper action on Cape Cod Bay", category: "catches" },
+  { src: "catch1", caption: "Fresh catch of the day", category: "catches" },
+  { src: "catch2", caption: "Pollock on the line", category: "catches" },
   { src: "vesselStarfish", caption: "Starfish in Barnstable Harbor", category: "fleet" },
   { src: "vesselCaptJohn", caption: "Capt. John & Son II", category: "fleet" },
+  { src: "vesselNantucketSound", caption: "Nantucket Sound — 75' Cruiser", category: "fleet" },
 ];
 
 // ─── Theme (Helen H exact brand colors) ─────────────────────────────────────
@@ -670,7 +673,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
           <Card onClick={onOpenGallery} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
             <div style={{ height: 90, position: "relative", overflow: "hidden" }}>
-              <img src={PHOTOS.sunset} alt="Gallery" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <img src={PHOTOS.catch1} alt="Gallery" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)" }} />
               <div style={{ position: "absolute", bottom: 8, left: 10, display: "flex", alignItems: "center", gap: 6 }}>
                 <Icons.Camera size={16} color="white" />
@@ -679,10 +682,9 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
             </div>
           </Card>
           <Card onClick={onOpenMap} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
-            <div style={{ height: 90, position: "relative", overflow: "hidden", background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})` }}>
-              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.3 }}>
-                <Icons.Map size={56} color="white" />
-              </div>
+            <div style={{ height: 90, position: "relative", overflow: "hidden" }}>
+              <img src={PHOTOS.boats} alt="Fishing Map" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(26,42,74,0.5), rgba(50,107,197,0.7))" }} />
               <div style={{ position: "absolute", bottom: 8, left: 10, display: "flex", alignItems: "center", gap: 6 }}>
                 <Icons.MapPin size={16} color="white" />
                 <span style={{ fontSize: 13, fontWeight: 700, color: "white" }}>Fishing Map</span>
