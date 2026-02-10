@@ -337,12 +337,12 @@ const TRIPS = [
 ];
 
 const VESSELS = [
-  { name: "Helen H", length: "100'", type: "Aluminum Super Cruiser", capacity: "28–45", location: "Hyannis, MA", desc: "The fastest party fishing boat in New England. Full galley, spacious cabin, top deck. USCG inspected.", photo: PHOTOS.vesselHelenH },
-  { name: "Angler", length: "85'", type: "Party Fishing Boat", capacity: "28–38", location: "Plymouth, MA", desc: "Departing from Plymouth Harbor for Jeffery's Ledge and Stellwagen Bank trips.", photo: PHOTOS.vesselAngler },
-  { name: "Starfish", length: "42'", type: "Fiberglass Charter", capacity: "8–14", location: "Barnstable Harbor", desc: "Intimate fishing on the northside of Cape Cod. Bar onboard. USCG inspected.", photo: PHOTOS.vesselStarfish },
-  { name: "Capt. John & Son II", length: "75'", type: "Party Fishing Boat", capacity: "30+", location: "Plymouth, MA", desc: "A staple of the Plymouth fishing fleet with decades of experience.", photo: PHOTOS.vesselCaptJohn },
-  { name: "Nantucket Sound", length: "65'", type: "Charter Vessel", capacity: "Up to 49", location: "Hyannis, MA", desc: "Versatile vessel for charters, cruises, and ferry service.", photo: PHOTOS.vesselNantucketSound },
-  { name: "Nantucket Shoals", length: "60'", type: "Charter Vessel", capacity: "Up to 40", location: "Hyannis, MA", desc: "Premium charter vessel for private events and fishing expeditions.", photo: PHOTOS.vesselShoals },
+  { name: "Helen H", length: "100'", type: "Aluminum Super Cruiser", capacity: "28–45", location: "Hyannis, MA", speed: "Fastest in NE", material: "Aluminum", desc: "The fastest party fishing boat in New England. Full galley, spacious cabin, top deck. USCG inspected.", photo: PHOTOS.vesselHelenH, fullDesc: "An aluminum-hulled 100-foot super cruiser renowned as the fastest party fishing boat in New England. Offers trips from 6-hour inshore runs to epic 3-day offshore tuna expeditions. The flagship of the Helen H fleet.", amenities: ["Full galley & bar", "Spacious cabin seating", "Top deck with panoramic views", "Rod holders & fish cleaning station", "Hot meals & beverages"], tripTypes: ["Inshore porgies & sea bass", "Offshore fluke", "George's Bank groundfish", "Multi-day tuna expeditions", "Private charters"], uscg: true },
+  { name: "Angler", length: "75'", type: "Jet-Drive Cruiser", capacity: "15–38", location: "Hyannis, MA", speed: "24 knots", material: "Fiberglass", desc: "75-foot jet-drive cruiser with 3 Hamilton jets. Fast, smooth, and versatile for offshore fishing and cruises.", photo: PHOTOS.vesselAngler, fullDesc: "A 75-foot fiberglass-hulled sister ship of the Nantucket Sound featuring 3 Hamilton jet drives and a top speed of 24 knots. Primary targets include mahi-mahi and yellowfin tuna with a new Wind Farm Fishing Tour offering.", amenities: ["Comfortable cabin inside", "Full galley & bar", "Hot food & drinks service", "Top deck with panoramic views"], tripTypes: ["Offshore fluke fishing", "Wind Farm Fishing Tours", "Whale watching", "Harbor tours", "Private charters"], uscg: true },
+  { name: "Starfish", length: "42'", type: "Fiberglass Charter", capacity: "8–14", location: "Barnstable Harbor", speed: "Cruising", material: "Fiberglass", desc: "Intimate fishing on the northside of Cape Cod. Bar onboard. USCG inspected.", photo: PHOTOS.vesselStarfish, fullDesc: "A 42-foot fiberglass vessel based in Barnstable Harbor on the northside of Cape Cod. Runs flounder, tautog, and striped bass trips plus customizable private beach cruises and sunset experiences. Perfect for small groups.", amenities: ["Bar onboard", "Refreshment service", "Customizable catering", "Intimate small-group setting"], tripTypes: ["Cape Cod Bay flounder", "Striped bass", "Private beach cruises", "Sunset cruises (90 min)", "Lobster pot hauling"], uscg: true },
+  { name: "Capt. John & Son II", length: "85'", type: "Aluminum Party Boat", capacity: "25–38", location: "Hyannis, MA", speed: "20 knots", material: "Aluminum", desc: "85-foot aluminum party boat cruising at 20 knots. Versatile for inshore and offshore operations.", photo: PHOTOS.vesselCaptJohn, fullDesc: "An impressive 85-foot aluminum-hulled party fishing boat with a cruising speed of 20 knots for swift navigation east of Nantucket. Features fluke trips, porgy and black sea bass trips in Nantucket Sound, plus fall blackfish/tautog fishing.", amenities: ["Full galley & bar", "Hot meals & drinks", "Comfortable cabin inside", "Spacious top deck"], tripTypes: ["Nantucket fluke (8 hrs)", "Porgies & sea bass", "Fall blackfish/tautog", "Private sunset cruises", "Private fishing charters"], uscg: true },
+  { name: "Nantucket Sound", length: "75'", type: "Fiberglass Cruiser", capacity: "Up to 49", location: "Hyannis, MA", speed: "18 knots", material: "Fiberglass", desc: "75-foot inshore specialist cruising Nantucket Sound at 18 knots. Sister ship to the Angler.", photo: PHOTOS.vesselNantucketSound, fullDesc: "A 75-foot fiberglass-hulled vessel designed for exceptional fishing experiences within Nantucket Sound at a smooth 18-knot cruise. Offers half-day inshore fishing trips primarily targeting porgies and black sea bass.", amenities: ["Full galley & bar", "Meals & beverages", "Comfortable cabin inside", "Spacious top deck"], tripTypes: ["Half-day porgies & sea bass", "Morning trips (8AM–Noon)", "Afternoon trips (1PM–5PM)", "Private sunset cruises"], uscg: true },
+  { name: "Nantucket Shoals", length: "50'", type: "Aluminum Catamaran", capacity: "Up to 20", location: "Hyannis, MA", speed: "Cruising", material: "Aluminum (catamaran)", desc: "Unique catamaran hull design for smooth offshore navigation. Intimate groups of up to 20.", photo: PHOTOS.vesselShoals, fullDesc: "A 50-foot aluminum-hulled catamaran vessel ideal for offshore fluke fishing and private charters. The unique catamaran hull design enables exceptionally smooth navigation in offshore waters for a comfortable ride.", amenities: ["Comfortable cabin", "Smooth catamaran ride", "Intimate group setting"], tripTypes: ["Offshore fluke fishing", "Island transport", "Whale watching", "Harbor tours", "Private charters"], uscg: true },
 ];
 
 const SPECIES_INFO = [
@@ -873,33 +873,35 @@ const BookingScreen = ({ trip, onBack, onConfirm }) => {
 };
 
 // ─── Fleet Screen ───────────────────────────────────────────────────────────
-const FleetScreen = () => (
+const FleetScreen = ({ onSelectVessel }) => (
   <div>
     <WaveBackground height={140}>
       <div style={{ padding: "20px 20px 50px" }}>
         <div style={{ fontSize: 28, fontWeight: 800, color: theme.white, letterSpacing: -0.5 }}>Our Fleet</div>
-        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>8 vessels serving Cape Cod</div>
+        <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>6 vessels serving Cape Cod</div>
       </div>
     </WaveBackground>
     <div style={{ padding: "0 20px", marginTop: -20, display: "flex", flexDirection: "column", gap: 14, position: "relative", zIndex: 2 }}>
       {VESSELS.map((v, i) => (
-        <Card key={i} style={{ overflow: "hidden", padding: 0 }}>
-          <div style={{ height: 100, position: "relative", overflow: "hidden" }}>
+        <Card key={i} style={{ overflow: "hidden", padding: 0, cursor: "pointer" }} onClick={() => onSelectVessel(v)}>
+          <div style={{ height: 120, position: "relative", overflow: "hidden" }}>
             <img src={v.photo} alt={v.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; }} />
             <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, zIndex: -1, display: "flex", alignItems: "center", justifyContent: "center" }}><FishIllustrations.boat size={52} /></div>
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
-            <div style={{ position: "absolute", bottom: 10, left: 14, display: "flex", gap: 8, alignItems: "center" }}>
-              <span style={{ fontSize: 17, fontWeight: 700, color: theme.white, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{v.name}</span>
-              <Badge color={theme.white} bg="rgba(255,255,255,0.25)" small>{v.length}</Badge>
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 50%, transparent 100%)" }} />
+            <div style={{ position: "absolute", bottom: 10, left: 14, right: 14 }}>
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <span style={{ fontSize: 18, fontWeight: 700, color: theme.white, textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>{v.name}</span>
+                <Badge color={theme.white} bg="rgba(255,255,255,0.25)" small>{v.length}</Badge>
+              </div>
+              <div style={{ fontSize: 11, color: "rgba(255,255,255,0.8)", marginTop: 2 }}>{v.type} — {v.location}</div>
             </div>
           </div>
-          <div style={{ padding: 14 }}>
-            <Badge small color={theme.blue}>{v.type}</Badge>
-            <div style={{ fontSize: 13, color: theme.gray500, lineHeight: 1.5, marginTop: 8 }}>{v.desc}</div>
-            <div style={{ display: "flex", gap: 16, marginTop: 10, paddingTop: 10, borderTop: `1px solid ${theme.gray100}` }}>
-              <span style={{ fontSize: 12, color: theme.gray400, display: "flex", alignItems: "center", gap: 4 }}><Icons.Users size={14} />{v.capacity} pax</span>
-              <span style={{ fontSize: 12, color: theme.gray400, display: "flex", alignItems: "center", gap: 4 }}><Icons.MapPin size={14} />{v.location}</span>
+          <div style={{ padding: "12px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ display: "flex", gap: 16 }}>
+              <span style={{ fontSize: 12, color: theme.gray400, display: "flex", alignItems: "center", gap: 4 }}><Icons.Users size={14} />{v.capacity}</span>
+              <span style={{ fontSize: 12, color: theme.gray400, display: "flex", alignItems: "center", gap: 4 }}><Icons.Compass size={14} />{v.speed}</span>
             </div>
+            <div style={{ color: theme.blue, fontSize: 13, fontWeight: 600 }}>Details ›</div>
           </div>
         </Card>
       ))}
@@ -907,6 +909,124 @@ const FleetScreen = () => (
     <div style={{ height: 20 }} />
   </div>
 );
+
+const VesselDetailScreen = ({ vessel, onBack, onSelectTrip }) => {
+  const v = vessel;
+  const vesselTrips = TRIPS.filter(t => t.vessel === v.name || (v.name === "Capt. John & Son II" && t.vessel === "Capt. John"));
+  return (
+    <div>
+      <PhotoBg src={v.photo} style={{ height: 260 }} fallbackColor={`linear-gradient(135deg, ${theme.navy}, ${theme.blue})`} overlayGradient="linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.2) 100%)">
+        <div style={{ padding: "16px 20px 20px", height: 260, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+          <div onClick={onBack} style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", alignSelf: "flex-start" }}>
+            <Icons.ChevronLeft size={20} color="white" />
+            <span style={{ fontSize: 15, color: "white", fontWeight: 500 }}>Fleet</span>
+          </div>
+          <div>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 6 }}>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: "rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <FishIllustrations.boat size={28} />
+              </div>
+              <div>
+                <div style={{ fontSize: 26, fontWeight: 800, color: theme.white, lineHeight: 1.1 }}>{v.name}</div>
+                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.7)", marginTop: 2 }}>{v.type}</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", gap: 8, marginTop: 8 }}>
+              <Badge color={theme.white} bg="rgba(255,255,255,0.2)" small>{v.length}</Badge>
+              <Badge color={theme.white} bg="rgba(255,255,255,0.2)" small>{v.capacity} pax</Badge>
+              {v.uscg && <Badge color={theme.white} bg="rgba(76,175,80,0.3)" small>USCG Inspected</Badge>}
+            </div>
+          </div>
+        </div>
+      </PhotoBg>
+
+      <div style={{ padding: "16px 20px 0" }}>
+        {/* About */}
+        <Card style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 8 }}>About This Vessel</div>
+          <div style={{ fontSize: 13, color: theme.gray500, lineHeight: 1.7 }}>{v.fullDesc}</div>
+        </Card>
+
+        {/* Specs */}
+        <Card style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 12 }}>Specifications</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+            {[
+              { label: "Length", value: v.length, icon: <Icons.Ship size={16} color={theme.blue} /> },
+              { label: "Speed", value: v.speed, icon: <Icons.Compass size={16} color={theme.gold} /> },
+              { label: "Capacity", value: v.capacity, icon: <Icons.Users size={16} color={theme.blue} /> },
+              { label: "Hull", value: v.material, icon: <Icons.Anchor size={16} color={theme.navy} /> },
+            ].map((item, i) => (
+              <div key={i} style={{ display: "flex", gap: 10, alignItems: "center" }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: theme.beige, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>{item.icon}</div>
+                <div>
+                  <div style={{ fontSize: 10, color: theme.gray400, textTransform: "uppercase", letterSpacing: 0.3 }}>{item.label}</div>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: theme.navy }}>{item.value}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* Amenities */}
+        <Card style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 10 }}>Onboard Amenities</div>
+          {v.amenities.map((a, i) => (
+            <div key={i} style={{ display: "flex", gap: 10, alignItems: "center", padding: "6px 0" }}>
+              <Icons.Check size={16} color={theme.blue} />
+              <span style={{ fontSize: 13, color: theme.gray500 }}>{a}</span>
+            </div>
+          ))}
+        </Card>
+
+        {/* Trip Types */}
+        <Card style={{ marginBottom: 12 }}>
+          <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 10 }}>Trip Types</div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+            {v.tripTypes.map((t, i) => <Badge key={i} color={theme.blue} bg={`${theme.blue}12`}>{t}</Badge>)}
+          </div>
+        </Card>
+
+        {/* Departures */}
+        <Card style={{ marginBottom: 12, background: `${theme.blue}08`, border: `1px solid ${theme.blue}18` }}>
+          <div style={{ display: "flex", gap: 10, alignItems: "center", marginBottom: 8 }}>
+            <Icons.MapPin size={18} color={theme.blue} />
+            <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy }}>Departure Location</div>
+          </div>
+          <div style={{ fontSize: 13, color: theme.gray500, lineHeight: 1.7 }}>{v.location} — Cape Cod, Massachusetts</div>
+        </Card>
+
+        {/* Available Trips on this vessel */}
+        {vesselTrips.length > 0 && (
+          <div style={{ marginBottom: 12 }}>
+            <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 10 }}>Trips on the {v.name}</div>
+            {vesselTrips.map(trip => (
+              <Card key={trip.id} style={{ marginBottom: 10, padding: 0, overflow: "hidden", cursor: "pointer" }} onClick={() => onSelectTrip(trip)}>
+                <div style={{ display: "flex" }}>
+                  <div style={{ width: 90, minHeight: 80, position: "relative", overflow: "hidden", flexShrink: 0 }}>
+                    <img src={trip.photo} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", inset: 0 }} onError={e => { e.target.style.display = "none"; }} />
+                    <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, zIndex: -1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <FishIcon type={trip.illustration} size={30} />
+                    </div>
+                  </div>
+                  <div style={{ padding: "10px 12px", flex: 1 }}>
+                    <div style={{ fontSize: 14, fontWeight: 600, color: theme.navy }}>{trip.name}</div>
+                    <div style={{ fontSize: 12, color: theme.gray400, marginTop: 2 }}>{trip.duration} — {trip.schedule}</div>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 6 }}>
+                      <span style={{ fontSize: 15, fontWeight: 700, color: theme.blue }}>${trip.price}<span style={{ fontSize: 11, fontWeight: 400, color: theme.gray400 }}>/person</span></span>
+                      <span style={{ fontSize: 12, fontWeight: 600, color: theme.blue }}>View ›</span>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        )}
+      </div>
+      <div style={{ height: 20 }} />
+    </div>
+  );
+};
 
 // ─── Species Guide Screen ───────────────────────────────────────────────────
 const StarRow = ({ rating, max = 5, label }) => (
@@ -1154,15 +1274,17 @@ export default function HelenHApp() {
   const [tab, setTab] = useState("home");
   const [selectedTrip, setSelectedTrip] = useState(null);
   const [selectedSpecies, setSelectedSpecies] = useState(null);
+  const [selectedVessel, setSelectedVessel] = useState(null);
   const [screen, setScreen] = useState("home");
   const scrollRef = useRef(null);
 
   const navigate = (dest) => {
-    if (["home", "trips", "fleet", "species", "contact"].includes(dest)) { setTab(dest); setScreen(dest); setSelectedTrip(null); setSelectedSpecies(null); }
+    if (["home", "trips", "fleet", "species", "contact"].includes(dest)) { setTab(dest); setScreen(dest); setSelectedTrip(null); setSelectedSpecies(null); setSelectedVessel(null); }
     scrollRef.current?.scrollTo(0, 0);
   };
   const selectTrip = (trip) => { setSelectedTrip(trip); setScreen("detail"); scrollRef.current?.scrollTo(0, 0); };
   const selectSpecies = (sp) => { setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
+  const selectVessel = (v) => { setSelectedVessel(v); setScreen("vesselDetail"); scrollRef.current?.scrollTo(0, 0); };
   const startBooking = () => { setScreen("booking"); scrollRef.current?.scrollTo(0, 0); };
 
   const tabs = [
@@ -1181,7 +1303,8 @@ export default function HelenHApp() {
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
-          {screen === "fleet" && <FleetScreen />}
+          {screen === "fleet" && <FleetScreen onSelectVessel={selectVessel} />}
+          {screen === "vesselDetail" && <VesselDetailScreen vessel={selectedVessel} onBack={() => { setScreen("fleet"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "species" && <SpeciesScreen onSelectSpecies={selectSpecies} />}
           {screen === "speciesDetail" && <SpeciesDetailScreen species={selectedSpecies} onBack={() => { setScreen("species"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "contact" && <ContactScreen />}
