@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 // ─── Helen H Brand Logo (SVG recreation of their circular badge logo) ───────
 const HelenHLogo = ({ size = 48 }) => (
@@ -318,6 +318,41 @@ const Icons = {
       <circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
     </svg>
   ),
+  Heart: ({ size = 24, color = "currentColor", filled = false }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={filled ? color : "none"} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+    </svg>
+  ),
+  Star: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={color} stroke={color} strokeWidth="1">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </svg>
+  ),
+  Camera: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/><circle cx="12" cy="13" r="4"/>
+    </svg>
+  ),
+  Map: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/>
+    </svg>
+  ),
+  Wind: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/>
+    </svg>
+  ),
+  Droplet: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0z"/>
+    </svg>
+  ),
+  Image: ({ size = 24, color = "currentColor" }) => (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
+    </svg>
+  ),
 };
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -356,6 +391,52 @@ const SPECIES_INFO = [
   { name: "Flounder", scientificName: "Pseudopleuronectes americanus", season: "Apr–Sep", best: "May", illustration: "flounder", color: "#7A6A3A", photo: PHOTOS.flounder, avgWeight: "1–3 lbs", record: "10 lbs (MA record)", habitat: "Sandy and muddy bottoms in bays and estuaries (5–60 ft), inlets, shallow flats, salt marshes.", technique: "Live sand eels, squid strips, small fish, simple drop rigs, light jigging, drift fishing.", regulations: "Minimum 12 inches. Bag limit 2 fish per angler per day. Season April 1–December 31.", funFact: "Winter flounder migrate to deeper water to avoid the coldest temperatures, then return to shallow bays and estuaries each spring.", difficulty: "Beginner", fightRating: 1, tasteRating: 4, description: "The classic flatfish of New England estuaries — perfect for anglers seeking steady action. Excellent table fish with tender meat that bites reliably on simple presentations." },
   { name: "Mahi-Mahi", scientificName: "Coryphaena hippurus", season: "Jul–Sep", best: "August", illustration: "mahi", color: "#1A7A3A", photo: PHOTOS.tuna3, avgWeight: "5–20 lbs", record: "56.5 lbs (rare in MA — caught in Gulf Stream)", habitat: "Deep offshore Gulf Stream waters (100+ ft), surface feeds on sargassum weed lines, warm water only.", technique: "Live small fish, trolling with rigged baits, popping and swimming lures, heavy spinning tackle, sight casting to schools.", regulations: "Federal waters — no minimum size, no bag limit (verify current NOAA guidelines).", funFact: "Mahi-mahi can change colors rapidly from bright greens and yellows to blues and silver depending on mood, water conditions, and feeding activity.", difficulty: "Advanced", fightRating: 5, tasteRating: 4, description: "Explosive offshore fighters that leap repeatedly when hooked. Found in Gulf Stream waters off Cape Cod in summer — visually stunning, hard-fighting, and one of the most exciting catches." },
   { name: "Tautog", scientificName: "Tautoga onitis", season: "Apr–Nov", best: "October", illustration: "tautog", color: "#3A3A3A", photo: PHOTOS.catch3, avgWeight: "1–4 lbs", record: "7 lbs 2 oz (MA record)", habitat: "Rock piles, jetties, bridge pilings, structure-heavy areas (5–80 ft), coastal reefs, wrecks.", technique: "Green crabs or fiddler crabs (preferred), shrimp, clams, light rigs with small hooks, precise bottom presentations.", regulations: "When open (varies annually) — typically 10-fish vessel limit, 14–16\" minimum. Check MA DMF for seasonal closures.", funFact: "Tautog have powerful jaws and pharyngeal teeth that crush shells and crustaceans — they'll crush your hook if you're not careful with your technique.", difficulty: "Intermediate", fightRating: 3, tasteRating: 5, description: "Tough-mouthed grunters that crush your line around structure if you're not careful. Excellent table fish targeted by dedicated New England anglers every fall." },
+];
+
+const REVIEWS = [
+  { name: "Mike R.", trip: "Offshore Tuna Charter", rating: 5, text: "Best fishing trip I've ever been on. Captain knew exactly where the tuna were running. Landed a 45lb yellowfin!", date: "Aug 2025" },
+  { name: "Sarah & Tom K.", trip: "Family Fluke Adventure", rating: 5, text: "Perfect family trip. The crew was amazing with our kids. We caught our limit of fluke by noon!", date: "Jul 2025" },
+  { name: "Dave L.", trip: "Nantucket Overnight", rating: 4, text: "The overnight trip to the canyons was worth every penny. Non-stop action from sunset to sunrise.", date: "Sep 2025" },
+  { name: "Jennifer M.", trip: "Spring Porgies & Sea Bass", rating: 5, text: "First time deep sea fishing and I'm hooked! The crew made everything so easy and fun.", date: "May 2025" },
+  { name: "Chris P.", trip: "Striped Bass Blitz", rating: 5, text: "We hit the striper blitz right at dawn. Must have caught 30 fish between the group. Incredible experience!", date: "Jun 2025" },
+  { name: "Linda & Ray T.", trip: "3-Day Giant Fluke Hunt", rating: 5, text: "Three days of fishing heaven. The overnight in Nantucket was a bonus. Caught my personal best fluke at 9.5 lbs.", date: "Aug 2025" },
+];
+
+const getWhatsBiting = () => {
+  const month = new Date().getMonth();
+  const biteData = [
+    { month: 0, species: "Winter Cod", status: "Slow", note: "Deep water cod on wrecks. Bundle up!", color: "#6B6B7A", temp: "38" },
+    { month: 1, species: "Winter Cod", status: "Slow", note: "Pre-season prep underway. Early bookings open.", color: "#6B6B7A", temp: "36" },
+    { month: 2, species: "Tautog", status: "Warming Up", note: "Blackfish season opener approaching. Green crabs ready.", color: "#3A3A3A", temp: "42" },
+    { month: 3, species: "Flounder", status: "Good", note: "Spring flounder running in the bays. Light tackle fun!", color: "#7A6A3A", temp: "48" },
+    { month: 4, species: "Porgies & Sea Bass", status: "Hot", note: "Season opener! Humpback porgies thick in Nantucket Sound.", color: "#7A7A9A", temp: "55" },
+    { month: 5, species: "Striped Bass", status: "On Fire", note: "Stripers blitzing bait along the Cape. Best bite of the year!", color: "#4A6A4A", temp: "62" },
+    { month: 6, species: "Fluke & Tuna", status: "On Fire", note: "Fluke limits coming easy. First tuna showing in the canyons.", color: "#8B7B4A", temp: "68" },
+    { month: 7, species: "Yellowfin Tuna", status: "On Fire", note: "Peak tuna season! Canyon trips loading up. Book now.", color: "#1B4F8A", temp: "72" },
+    { month: 8, species: "Tuna & Mahi", status: "Hot", note: "Mahi-mahi crashing bait offshore. Tuna still hot.", color: "#1A7A3A", temp: "70" },
+    { month: 9, species: "Haddock & Tautog", status: "Hot", note: "Fall bite is on. George's Bank haddock and inshore blackfish.", color: "#6B6B7A", temp: "60" },
+    { month: 10, species: "Tautog", status: "Good", note: "Last call for blackfish. Big tog on the jetties and wrecks.", color: "#3A3A3A", temp: "50" },
+    { month: 11, species: "Winter Cod", status: "Moderate", note: "Deep water cod trips winding down. Gift cards available!", color: "#6B6B7A", temp: "42" },
+  ];
+  return biteData[month];
+};
+
+const GALLERY_PHOTOS = [
+  { src: "hero", caption: "Heading out of Hyannis Harbor", category: "fleet" },
+  { src: "boats", caption: "The Helen H Fleet at dock", category: "fleet" },
+  { src: "vesselHelenH", caption: "Helen H — Flagship 100' Super Cruiser", category: "fleet" },
+  { src: "vesselAngler", caption: "The Angler — 75' Jet-Drive Cruiser", category: "fleet" },
+  { src: "sunset", caption: "Sunset over Nantucket Sound", category: "scenery" },
+  { src: "dock", caption: "Morning at Hyannis Harbor", category: "scenery" },
+  { src: "tuna2", caption: "Yellowfin tuna — canyon trophy", category: "catches" },
+  { src: "fluke2", caption: "Summer fluke off Nantucket", category: "catches" },
+  { src: "striper2", caption: "Striped bass on the rip", category: "catches" },
+  { src: "seabass2", caption: "Black sea bass on the wreck", category: "catches" },
+  { src: "carl", caption: "Carl with a nice scup!", category: "catches" },
+  { src: "cod", caption: "Haddock from George's Bank", category: "catches" },
+  { src: "stripers", caption: "Striper action on Cape Cod Bay", category: "catches" },
+  { src: "vesselStarfish", caption: "Starfish in Barnstable Harbor", category: "fleet" },
+  { src: "vesselCaptJohn", caption: "Capt. John & Son II", category: "fleet" },
 ];
 
 // ─── Theme (Helen H exact brand colors) ─────────────────────────────────────
@@ -473,8 +554,10 @@ const Button = ({ children, variant = "primary", size = "md", style, onClick, di
 };
 
 // ─── Home Screen ────────────────────────────────────────────────────────────
-const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
+const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, favorites, onToggleFavorite }) => {
   const featuredTrips = TRIPS.filter(t => [5, 2, 11].includes(t.id));
+  const bite = getWhatsBiting();
+  const [reviewIdx, setReviewIdx] = useState(0);
 
   return (
     <div>
@@ -495,7 +578,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
       </PhotoBg>
 
       {/* Season Alert */}
-      <div style={{ padding: "0 20px", marginTop: -20, marginBottom: 24, position: "relative", zIndex: 2 }}>
+      <div style={{ padding: "0 20px", marginTop: -20, marginBottom: 20, position: "relative", zIndex: 2 }}>
         <div style={{ background: theme.white, border: `1px solid ${theme.blue}25`, borderRadius: 14, padding: "14px 16px", display: "flex", gap: 12, alignItems: "center", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: `${theme.blue}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
             <Icons.Sun size={20} color={theme.blue} />
@@ -507,7 +590,29 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
         </div>
       </div>
 
-      {/* Featured Trips - with real photos */}
+      {/* Weather Widget */}
+      <WeatherWidget />
+
+      {/* What's Biting Now */}
+      <div style={{ padding: "0 20px", marginBottom: 24 }}>
+        <Card style={{ padding: 0, overflow: "hidden", border: `2px solid ${bite.color}30` }}>
+          <div style={{ background: `${bite.color}12`, padding: "14px 16px", display: "flex", gap: 14, alignItems: "center" }}>
+            <div style={{ width: 44, height: 44, borderRadius: 12, background: `${bite.color}20`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+              <Icons.Fish size={24} color={bite.color} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
+                <span style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1, color: bite.color }}>What's Biting</span>
+                <span style={{ fontSize: 10, fontWeight: 700, color: theme.white, background: bite.status === "On Fire" ? theme.danger : bite.status === "Hot" ? theme.gold : theme.success, padding: "2px 8px", borderRadius: 8 }}>{bite.status}</span>
+              </div>
+              <div style={{ fontSize: 16, fontWeight: 800, color: theme.navy }}>{bite.species}</div>
+              <div style={{ fontSize: 12, color: theme.gray500, marginTop: 2, lineHeight: 1.4 }}>{bite.note}</div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      {/* Featured Trips - with real photos and favorites */}
       <SectionHeader title="Featured Trips" subtitle="Hand-picked adventures" action="See All" onAction={() => onNavigate("trips")} />
       <div style={{ display: "flex", gap: 12, padding: "0 20px", overflowX: "auto", paddingBottom: 4 }}>
         {featuredTrips.map(trip => (
@@ -515,7 +620,11 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
             <PhotoBg src={trip.photo} style={{ height: 130 }}>
               <div style={{ padding: "10px 12px", display: "flex", justifyContent: "space-between", alignItems: "flex-start", height: 110 }}>
                 <Badge color={theme.white} bg="rgba(255,255,255,0.2)" small>{trip.category}</Badge>
-                <div style={{ opacity: 0.8 }}><FishIcon type={trip.illustration} size={40} /></div>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <div onClick={e => { e.stopPropagation(); onToggleFavorite(trip.id); }} style={{ width: 32, height: 32, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}>
+                    <Icons.Heart size={16} color={favorites.has(trip.id) ? "#FF3B30" : "white"} filled={favorites.has(trip.id)} />
+                  </div>
+                </div>
               </div>
             </PhotoBg>
             <div style={{ padding: 14 }}>
@@ -535,7 +644,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
 
       {/* Target Species with photos */}
       <div style={{ marginTop: 28 }}>
-        <SectionHeader title="Target Species" subtitle="What's biting this season" />
+        <SectionHeader title="Target Species" subtitle="What's biting this season" action="Full Guide" onAction={() => onNavigate("species")} />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, padding: "0 20px" }}>
           {SPECIES_INFO.slice(0, 6).map((sp, i) => (
             <div key={i} onClick={() => onSelectSpecies(sp)} style={{ borderRadius: 14, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", cursor: "pointer" }}>
@@ -553,6 +662,60 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Explore Section - Gallery & Map */}
+      <div style={{ padding: "28px 20px 0" }}>
+        <SectionHeader title="Explore" subtitle="Discover more" />
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+          <Card onClick={onOpenGallery} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
+            <div style={{ height: 90, position: "relative", overflow: "hidden" }}>
+              <img src={PHOTOS.sunset} alt="Gallery" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)" }} />
+              <div style={{ position: "absolute", bottom: 8, left: 10, display: "flex", alignItems: "center", gap: 6 }}>
+                <Icons.Camera size={16} color="white" />
+                <span style={{ fontSize: 13, fontWeight: 700, color: "white" }}>Photo Gallery</span>
+              </div>
+            </div>
+          </Card>
+          <Card onClick={onOpenMap} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
+            <div style={{ height: 90, position: "relative", overflow: "hidden", background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})` }}>
+              <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", opacity: 0.3 }}>
+                <Icons.Map size={56} color="white" />
+              </div>
+              <div style={{ position: "absolute", bottom: 8, left: 10, display: "flex", alignItems: "center", gap: 6 }}>
+                <Icons.MapPin size={16} color="white" />
+                <span style={{ fontSize: 13, fontWeight: 700, color: "white" }}>Fishing Map</span>
+              </div>
+            </div>
+          </Card>
+        </div>
+      </div>
+
+      {/* Customer Reviews */}
+      <div style={{ padding: "28px 20px 0" }}>
+        <SectionHeader title="What Anglers Say" subtitle="Recent reviews" />
+        <Card style={{ padding: 0, overflow: "hidden" }}>
+          <div style={{ padding: "18px 18px 14px" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 8 }}>
+              {[1,2,3,4,5].map(s => <Icons.Star key={s} size={14} color={s <= REVIEWS[reviewIdx].rating ? theme.gold : theme.gray200} />)}
+            </div>
+            <div style={{ fontSize: 14, color: theme.gray600, lineHeight: 1.6, fontStyle: "italic", minHeight: 60 }}>"{REVIEWS[reviewIdx].text}"</div>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 12 }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: theme.navy }}>{REVIEWS[reviewIdx].name}</div>
+                <div style={{ fontSize: 11, color: theme.gray400 }}>{REVIEWS[reviewIdx].trip} · {REVIEWS[reviewIdx].date}</div>
+              </div>
+              <div style={{ display: "flex", gap: 6 }}>
+                <div onClick={() => setReviewIdx(i => (i - 1 + REVIEWS.length) % REVIEWS.length)} style={{ width: 30, height: 30, borderRadius: 8, background: theme.beige, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}><Icons.ChevronLeft size={16} color={theme.gray500} /></div>
+                <div onClick={() => setReviewIdx(i => (i + 1) % REVIEWS.length)} style={{ width: 30, height: 30, borderRadius: 8, background: theme.beige, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transform: "scaleX(-1)" }}><Icons.ChevronLeft size={16} color={theme.gray500} /></div>
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center", gap: 6, padding: "0 0 14px" }}>
+            {REVIEWS.map((_, i) => <div key={i} style={{ width: i === reviewIdx ? 16 : 6, height: 6, borderRadius: 3, background: i === reviewIdx ? theme.blue : theme.gray200, transition: "all 0.3s" }} />)}
+          </div>
+        </Card>
       </div>
 
       {/* Quick Actions */}
@@ -579,11 +742,11 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
 };
 
 // ─── Trips Screen ───────────────────────────────────────────────────────────
-const TripsScreen = ({ onSelectTrip }) => {
+const TripsScreen = ({ onSelectTrip, favorites, onToggleFavorite }) => {
   const [filter, setFilter] = useState("all");
   const [sortBy, setSortBy] = useState("price-low");
-  const categories = [{ id: "all", label: "All Trips" }, { id: "inshore", label: "Inshore" }, { id: "offshore", label: "Offshore" }, { id: "multi-day", label: "Multi-Day" }];
-  let filtered = filter === "all" ? TRIPS : TRIPS.filter(t => t.category === filter);
+  const categories = [{ id: "all", label: "All Trips" }, { id: "favorites", label: "Saved" }, { id: "inshore", label: "Inshore" }, { id: "offshore", label: "Offshore" }, { id: "multi-day", label: "Multi-Day" }];
+  let filtered = filter === "favorites" ? TRIPS.filter(t => favorites.has(t.id)) : filter === "all" ? TRIPS : TRIPS.filter(t => t.category === filter);
   if (sortBy === "price-low") filtered = [...filtered].sort((a, b) => a.price - b.price);
   if (sortBy === "price-high") filtered = [...filtered].sort((a, b) => b.price - a.price);
   if (sortBy === "duration") filtered = [...filtered].sort((a, b) => parseInt(a.duration) - parseInt(b.duration));
@@ -608,7 +771,7 @@ const TripsScreen = ({ onSelectTrip }) => {
       </div>
       <div style={{ padding: "0 20px", display: "flex", flexDirection: "column", gap: 12 }}>
         {filtered.map(trip => (
-          <Card key={trip.id} onClick={() => onSelectTrip(trip)} style={{ display: "flex", gap: 14, padding: 0, overflow: "hidden" }}>
+          <Card key={trip.id} onClick={() => onSelectTrip(trip)} style={{ display: "flex", gap: 14, padding: 0, overflow: "hidden", position: "relative" }}>
             <div style={{ width: 90, minHeight: 100, flexShrink: 0, position: "relative", overflow: "hidden" }}>
               <img src={trip.photo} alt="" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; e.target.parentElement.style.background = `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`; }} />
               <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, zIndex: -1, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -616,7 +779,12 @@ const TripsScreen = ({ onSelectTrip }) => {
               </div>
             </div>
             <div style={{ flex: 1, minWidth: 0, padding: "12px 14px 12px 0" }}>
-              <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, lineHeight: 1.2 }}>{trip.name}</div>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, lineHeight: 1.2, flex: 1 }}>{trip.name}</div>
+                <div onClick={e => { e.stopPropagation(); onToggleFavorite(trip.id); }} style={{ cursor: "pointer", padding: 4, marginTop: -2 }}>
+                  <Icons.Heart size={18} color={favorites.has(trip.id) ? "#FF3B30" : theme.gray300} filled={favorites.has(trip.id)} />
+                </div>
+              </div>
               <div style={{ fontSize: 12, color: theme.gray400, marginTop: 4 }}>{trip.vessel} · {trip.departure}</div>
               <div style={{ display: "flex", gap: 10, marginTop: 8, alignItems: "center" }}>
                 <span style={{ fontSize: 11, color: theme.gray500, display: "flex", alignItems: "center", gap: 3 }}><Icons.Clock size={12} />{trip.duration}</span>
@@ -636,7 +804,7 @@ const TripsScreen = ({ onSelectTrip }) => {
 };
 
 // ─── Trip Detail Screen ─────────────────────────────────────────────────────
-const TripDetailScreen = ({ trip, onBack, onBook }) => {
+const TripDetailScreen = ({ trip, onBack, onBook, favorites, onToggleFavorite }) => {
   if (!trip) return null;
   return (
     <div>
@@ -644,6 +812,9 @@ const TripDetailScreen = ({ trip, onBack, onBook }) => {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px 0", color: theme.white }}>
           <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}>
             <Icons.ChevronLeft size={20} color={theme.white} /><span style={{ fontSize: 14 }}>Back</span>
+          </div>
+          <div onClick={() => onToggleFavorite(trip.id)} style={{ cursor: "pointer", width: 36, height: 36, borderRadius: "50%", background: "rgba(0,0,0,0.3)", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Icons.Heart size={18} color={favorites.has(trip.id) ? "#FF3B30" : "white"} filled={favorites.has(trip.id)} />
           </div>
         </div>
         <div style={{ textAlign: "center", padding: "10px 20px 40px" }}>
@@ -1269,6 +1440,216 @@ const ContactScreen = () => (
   </div>
 );
 
+// ─── Weather Widget ─────────────────────────────────────────────────────────
+const WeatherWidget = () => {
+  const [weather, setWeather] = useState(null);
+  useEffect(() => {
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=41.65&longitude=-70.28&current=temperature_2m,wind_speed_10m,weather_code&daily=sunrise,sunset&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America/New_York&forecast_days=1")
+      .then(r => r.json()).then(d => {
+        const c = d.current;
+        const wc = c.weather_code;
+        let condition = "Clear";
+        if (wc >= 1 && wc <= 3) condition = "Partly Cloudy";
+        if (wc >= 45 && wc <= 48) condition = "Foggy";
+        if (wc >= 51 && wc <= 67) condition = "Rainy";
+        if (wc >= 71 && wc <= 77) condition = "Snowy";
+        if (wc >= 80 && wc <= 82) condition = "Showers";
+        if (wc >= 95) condition = "Stormy";
+        setWeather({ temp: Math.round(c.temperature_2m), wind: Math.round(c.wind_speed_10m), condition, sunrise: d.daily.sunrise[0].split("T")[1], sunset: d.daily.sunset[0].split("T")[1] });
+      }).catch(() => {
+        const bite = getWhatsBiting();
+        setWeather({ temp: parseInt(bite.temp), wind: 12, condition: "Clear", sunrise: "6:15", sunset: "7:45" });
+      });
+  }, []);
+  if (!weather) return null;
+  return (
+    <div style={{ padding: "0 20px", marginBottom: 20 }}>
+      <Card style={{ background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, padding: 0, overflow: "hidden" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 16px" }}>
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 600, color: "rgba(255,255,255,0.6)", textTransform: "uppercase", letterSpacing: 1 }}>Hyannis Harbor</div>
+            <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginTop: 4 }}>
+              <span style={{ fontSize: 32, fontWeight: 800, color: theme.white }}>{weather.temp}</span>
+              <span style={{ fontSize: 14, color: "rgba(255,255,255,0.7)" }}>°F</span>
+            </div>
+            <div style={{ fontSize: 13, color: "rgba(255,255,255,0.8)", marginTop: 2 }}>{weather.condition}</div>
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 8, alignItems: "flex-end" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <Icons.Wind size={14} color="rgba(255,255,255,0.7)" />
+              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>{weather.wind} mph</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <Icons.Sun size={14} color="rgba(255,255,255,0.7)" />
+              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>{weather.sunrise}</span>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <Icons.Clock size={14} color="rgba(255,255,255,0.7)" />
+              <span style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>Set {weather.sunset}</span>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+};
+
+// ─── Gallery Screen ─────────────────────────────────────────────────────────
+const GalleryScreen = ({ onBack }) => {
+  const [filter, setFilter] = useState("all");
+  const categories = [{ id: "all", label: "All" }, { id: "catches", label: "Catches" }, { id: "fleet", label: "Fleet" }, { id: "scenery", label: "Scenery" }];
+  const filtered = filter === "all" ? GALLERY_PHOTOS : GALLERY_PHOTOS.filter(p => p.category === filter);
+  const [lightbox, setLightbox] = useState(null);
+
+  return (
+    <div>
+      <WaveBackground height={140}>
+        <div style={{ padding: "20px 20px 50px" }}>
+          <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
+            <Icons.ChevronLeft size={20} color="white" /><span style={{ fontSize: 14, color: "white" }}>Back</span>
+          </div>
+          <div style={{ fontSize: 28, fontWeight: 800, color: theme.white }}>Photo Gallery</div>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>Catches, fleet & Cape Cod moments</div>
+        </div>
+      </WaveBackground>
+      <div style={{ padding: "0 20px", marginTop: -20, position: "relative", zIndex: 2 }}>
+        <div style={{ display: "flex", gap: 8, marginBottom: 16, overflowX: "auto" }}>
+          {categories.map(c => (
+            <div key={c.id} onClick={() => setFilter(c.id)} style={{ padding: "8px 16px", borderRadius: 20, background: filter === c.id ? theme.blue : theme.white, color: filter === c.id ? theme.white : theme.gray500, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", boxShadow: "0 2px 8px rgba(0,0,0,0.06)" }}>{c.label}</div>
+          ))}
+        </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+          {filtered.map((photo, i) => (
+            <div key={i} onClick={() => setLightbox(photo)} style={{ cursor: "pointer", borderRadius: 14, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", background: theme.white }}>
+              <div style={{ height: i % 3 === 0 ? 160 : 120, position: "relative", overflow: "hidden" }}>
+                <img src={PHOTOS[photo.src]} alt={photo.caption} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6), transparent)", padding: "20px 8px 8px" }}>
+                  <div style={{ fontSize: 11, color: "white", fontWeight: 600 }}>{photo.caption}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      {lightbox && (
+        <div onClick={() => setLightbox(null)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.92)", zIndex: 9999, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", cursor: "pointer", padding: 20 }}>
+          <img src={PHOTOS[lightbox.src]} alt={lightbox.caption} style={{ maxWidth: "100%", maxHeight: "75vh", borderRadius: 12, objectFit: "contain" }} />
+          <div style={{ color: "white", fontSize: 15, fontWeight: 600, marginTop: 16, textAlign: "center" }}>{lightbox.caption}</div>
+          <div style={{ color: "rgba(255,255,255,0.5)", fontSize: 12, marginTop: 6 }}>Tap anywhere to close</div>
+        </div>
+      )}
+      <div style={{ height: 20 }} />
+    </div>
+  );
+};
+
+// ─── Interactive Map Screen ─────────────────────────────────────────────────
+const MapScreen = ({ onBack, onSelectTrip }) => {
+  const [selectedZone, setSelectedZone] = useState(null);
+  const zones = [
+    { id: "nantucket-sound", name: "Nantucket Sound", x: 255, y: 195, color: theme.success, species: ["Porgies", "Sea Bass", "Fluke"], depth: "15–60 ft", desc: "Sheltered waters between Cape Cod and the islands. Prime inshore fishing grounds.", trips: [1, 5, 11] },
+    { id: "nantucket-shoals", name: "Nantucket Shoals", x: 340, y: 220, color: theme.gold, species: ["Jumbo Fluke", "Trophy Fluke"], depth: "40–100 ft", desc: "Shallow sandy banks east of Nantucket. Famous for monster fluke.", trips: [2, 8, 10] },
+    { id: "georges-bank", name: "George's Bank", x: 370, y: 130, color: theme.danger, species: ["Haddock", "Pollock", "Cod"], depth: "150–400 ft", desc: "Deep offshore fishing grounds. One of the most productive in the Atlantic.", trips: [3, 9] },
+    { id: "cape-cod-bay", name: "Cape Cod Bay", x: 135, y: 110, color: theme.blue, species: ["Striped Bass", "Flounder", "Tautog"], depth: "10–80 ft", desc: "Northside fishing out of Barnstable Harbor. Great for inshore species.", trips: [11, 12] },
+    { id: "canyons", name: "Offshore Canyons", x: 380, y: 75, color: "#8B2FC9", species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish"], depth: "500+ ft", desc: "Deep canyon edges south of Georges Bank. Big game territory.", trips: [5, 6, 7] },
+  ];
+
+  return (
+    <div>
+      <WaveBackground height={140}>
+        <div style={{ padding: "20px 20px 50px" }}>
+          <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
+            <Icons.ChevronLeft size={20} color="white" /><span style={{ fontSize: 14, color: "white" }}>Back</span>
+          </div>
+          <div style={{ fontSize: 28, fontWeight: 800, color: theme.white }}>Fishing Map</div>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>Where we fish around Cape Cod</div>
+        </div>
+      </WaveBackground>
+      <div style={{ padding: "0 20px", marginTop: -20, position: "relative", zIndex: 2 }}>
+        <Card style={{ padding: 0, overflow: "hidden", marginBottom: 16 }}>
+          <div style={{ position: "relative", background: `linear-gradient(180deg, #1a3a5c 0%, #2a5a8a 100%)`, height: 300, overflow: "hidden" }}>
+            {/* Simplified Cape Cod SVG Map */}
+            <svg viewBox="0 0 440 300" style={{ width: "100%", height: "100%" }}>
+              {/* Water grid lines */}
+              {[60, 120, 180, 240].map(y => <line key={y} x1="0" y1={y} x2="440" y2={y} stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />)}
+              {[80, 160, 240, 320, 400].map(x => <line key={x} x1={x} y1="0" x2={x} y2="300" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />)}
+              {/* Cape Cod land mass */}
+              <path d="M60,160 L80,155 L100,148 L115,140 L130,128 L140,118 L150,108 L158,98 L162,90 L168,88 L178,92 L188,100 L198,112 L208,125 L218,135 L228,142 L238,148 L250,155 L260,160 L268,168 L272,178 L268,188 L258,192 L248,190 L238,185 L228,178 L218,172 L208,168 L195,170 L182,175 L168,178 L152,178 L138,176 L120,172 L105,168 L88,165 L72,163 Z" fill="#5a7a4a" stroke="#4a6a3a" strokeWidth="1.5" />
+              {/* Martha's Vineyard */}
+              <path d="M168,230 L200,225 L220,228 L225,235 L218,242 L195,245 L175,242 L168,235 Z" fill="#5a7a4a" stroke="#4a6a3a" strokeWidth="1" />
+              <text x="194" y="238" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="7" fontWeight="500">Martha's Vineyard</text>
+              {/* Nantucket */}
+              <path d="M268,225 L298,220 L315,225 L310,232 L288,236 L270,233 Z" fill="#5a7a4a" stroke="#4a6a3a" strokeWidth="1" />
+              <text x="291" y="230" textAnchor="middle" fill="rgba(255,255,255,0.5)" fontSize="7" fontWeight="500">Nantucket</text>
+              {/* Hyannis marker */}
+              <circle cx="190" cy="165" r="4" fill={theme.gold} stroke="white" strokeWidth="1.5" />
+              <text x="190" y="158" textAnchor="middle" fill="white" fontSize="8" fontWeight="700">Hyannis</text>
+              {/* Barnstable marker */}
+              <circle cx="148" cy="108" r="3" fill={theme.white} stroke={theme.blue} strokeWidth="1" />
+              <text x="148" y="102" textAnchor="middle" fill="rgba(255,255,255,0.7)" fontSize="7" fontWeight="500">Barnstable</text>
+              {/* Fishing zone markers */}
+              {zones.map(z => (
+                <g key={z.id} onClick={() => setSelectedZone(selectedZone?.id === z.id ? null : z)} style={{ cursor: "pointer" }}>
+                  <circle cx={z.x} cy={z.y} r={selectedZone?.id === z.id ? 18 : 14} fill={`${z.color}40`} stroke={z.color} strokeWidth={selectedZone?.id === z.id ? 2.5 : 1.5} />
+                  <circle cx={z.x} cy={z.y} r="4" fill={z.color} />
+                  <text x={z.x} y={z.y - 20} textAnchor="middle" fill="white" fontSize="7.5" fontWeight="600">{z.name}</text>
+                </g>
+              ))}
+              {/* Compass rose */}
+              <g transform="translate(40, 40)">
+                <circle r="16" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" strokeWidth="0.5" />
+                <text y="-6" textAnchor="middle" fill="white" fontSize="8" fontWeight="700">N</text>
+                <line x1="0" y1="-3" x2="0" y2="3" stroke="white" strokeWidth="1" />
+                <line x1="-3" y1="0" x2="3" y2="0" stroke="rgba(255,255,255,0.4)" strokeWidth="0.5" />
+              </g>
+            </svg>
+          </div>
+        </Card>
+        {/* Zone detail */}
+        {selectedZone ? (
+          <Card style={{ marginBottom: 16 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+              <div style={{ width: 12, height: 12, borderRadius: "50%", background: selectedZone.color }} />
+              <div style={{ fontSize: 17, fontWeight: 700, color: theme.navy }}>{selectedZone.name}</div>
+            </div>
+            <div style={{ fontSize: 13, color: theme.gray500, lineHeight: 1.6, marginBottom: 12 }}>{selectedZone.desc}</div>
+            <div style={{ display: "flex", gap: 8, marginBottom: 12 }}>
+              <div style={{ background: theme.beige, borderRadius: 10, padding: "8px 12px", flex: 1 }}>
+                <div style={{ fontSize: 10, color: theme.gray400, textTransform: "uppercase", fontWeight: 600, letterSpacing: 0.5 }}>Depth</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: theme.navy, marginTop: 2 }}>{selectedZone.depth}</div>
+              </div>
+              <div style={{ background: theme.beige, borderRadius: 10, padding: "8px 12px", flex: 1 }}>
+                <div style={{ fontSize: 10, color: theme.gray400, textTransform: "uppercase", fontWeight: 600, letterSpacing: 0.5 }}>Species</div>
+                <div style={{ fontSize: 14, fontWeight: 700, color: theme.navy, marginTop: 2 }}>{selectedZone.species.length} types</div>
+              </div>
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginBottom: 14 }}>
+              {selectedZone.species.map((s, i) => <Badge key={i} color={theme.navy} bg={`${selectedZone.color}18`}>{s}</Badge>)}
+            </div>
+            <div style={{ fontSize: 12, fontWeight: 600, color: theme.gray400, marginBottom: 8 }}>Available Trips</div>
+            {TRIPS.filter(t => selectedZone.trips.includes(t.id)).map(trip => (
+              <div key={trip.id} onClick={() => onSelectTrip(trip)} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "10px 0", borderTop: `1px solid ${theme.gray100}`, cursor: "pointer" }}>
+                <div>
+                  <div style={{ fontSize: 14, fontWeight: 600, color: theme.navy }}>{trip.name}</div>
+                  <div style={{ fontSize: 12, color: theme.gray400 }}>{trip.vessel} · {trip.duration}</div>
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: theme.blue }}>${trip.price}</div>
+              </div>
+            ))}
+          </Card>
+        ) : (
+          <Card style={{ textAlign: "center", padding: "20px 16px" }}>
+            <Icons.MapPin size={24} color={theme.gray300} />
+            <div style={{ fontSize: 14, fontWeight: 600, color: theme.gray400, marginTop: 8 }}>Tap a fishing zone on the map</div>
+            <div style={{ fontSize: 12, color: theme.gray300, marginTop: 4 }}>to see species, depths, and available trips</div>
+          </Card>
+        )}
+      </div>
+      <div style={{ height: 20 }} />
+    </div>
+  );
+};
+
 // ─── Main App ───────────────────────────────────────────────────────────────
 export default function HelenHApp() {
   const [tab, setTab] = useState("home");
@@ -1276,7 +1657,17 @@ export default function HelenHApp() {
   const [selectedSpecies, setSelectedSpecies] = useState(null);
   const [selectedVessel, setSelectedVessel] = useState(null);
   const [screen, setScreen] = useState("home");
+  const [favorites, setFavorites] = useState(new Set());
   const scrollRef = useRef(null);
+
+  const toggleFavorite = (tripId) => {
+    setFavorites(prev => {
+      const next = new Set(prev);
+      if (next.has(tripId)) next.delete(tripId);
+      else next.add(tripId);
+      return next;
+    });
+  };
 
   const navigate = (dest) => {
     if (["home", "trips", "fleet", "species", "contact"].includes(dest)) { setTab(dest); setScreen(dest); setSelectedTrip(null); setSelectedSpecies(null); setSelectedVessel(null); }
@@ -1284,9 +1675,12 @@ export default function HelenHApp() {
   };
   const selectTrip = (trip) => { setSelectedTrip(trip); setScreen("detail"); scrollRef.current?.scrollTo(0, 0); };
   const prevScreenRef = useRef("species");
+  const prevTripScreenRef = useRef("trips");
   const selectSpecies = (sp) => { prevScreenRef.current = screen === "home" ? "home" : "species"; setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
   const selectVessel = (v) => { setSelectedVessel(v); setScreen("vesselDetail"); scrollRef.current?.scrollTo(0, 0); };
   const startBooking = () => { setScreen("booking"); scrollRef.current?.scrollTo(0, 0); };
+  const openGallery = () => { setScreen("gallery"); scrollRef.current?.scrollTo(0, 0); };
+  const openMap = () => { setScreen("map"); scrollRef.current?.scrollTo(0, 0); };
 
   const tabs = [
     { id: "home", label: "Home", icon: Icons.Home },
@@ -1300,14 +1694,16 @@ export default function HelenHApp() {
     <div style={styles.outerWrap}>
       <div style={styles.appShell}>
         <div ref={scrollRef} style={styles.scrollArea}>
-          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} />}
-          {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} />}
-          {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} />}
+          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} favorites={favorites} onToggleFavorite={toggleFavorite} />}
+          {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} favorites={favorites} onToggleFavorite={toggleFavorite} />}
+          {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
           {screen === "fleet" && <FleetScreen onSelectVessel={selectVessel} />}
           {screen === "vesselDetail" && <VesselDetailScreen vessel={selectedVessel} onBack={() => { setScreen("fleet"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "species" && <SpeciesScreen onSelectSpecies={selectSpecies} />}
           {screen === "speciesDetail" && <SpeciesDetailScreen species={selectedSpecies} onBack={() => { const dest = prevScreenRef.current; setScreen(dest); setTab(dest); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
+          {screen === "gallery" && <GalleryScreen onBack={() => { navigate("home"); }} />}
+          {screen === "map" && <MapScreen onBack={() => { navigate("home"); }} onSelectTrip={selectTrip} />}
           {screen === "contact" && <ContactScreen />}
         </div>
         <div style={styles.tabBar}>
