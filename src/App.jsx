@@ -675,8 +675,8 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
       <div style={{ padding: "28px 20px 0" }}>
         <SectionHeader title="Angler of the Week" action="History" onAction={onOpenAnglers} />
         <Card onClick={onOpenAnglers} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
-          <div style={{ position: "relative", overflow: "hidden", background: theme.navy }}>
-            <img src={PHOTOS.carl} alt="Carl" style={{ width: "100%", display: "block", maxHeight: 380, objectFit: "contain", objectPosition: "center" }} />
+          <div style={{ position: "relative", overflow: "hidden" }}>
+            <img src={PHOTOS.carl} alt="Carl" style={{ width: "100%", display: "block", height: 380, objectFit: "cover", objectPosition: "center top" }} />
             <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)", padding: "40px 16px 14px" }}>
               <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, color: theme.gold }}>This Week's Champion</div>
               <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginTop: 4 }}>Carl</div>
