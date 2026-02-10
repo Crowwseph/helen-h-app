@@ -566,19 +566,6 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
         </div>
       </PhotoBg>
 
-      {/* Season Alert */}
-      <div style={{ padding: "0 20px", marginTop: -20, marginBottom: 20, position: "relative", zIndex: 2 }}>
-        <div style={{ background: theme.white, border: `1px solid ${theme.blue}25`, borderRadius: 14, padding: "14px 16px", display: "flex", gap: 12, alignItems: "center", boxShadow: "0 2px 12px rgba(0,0,0,0.06)" }}>
-          <div style={{ width: 36, height: 36, borderRadius: 10, background: `${theme.blue}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-            <Icons.Sun size={20} color={theme.blue} />
-          </div>
-          <div style={{ flex: 1 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: theme.navy }}>2026 Season is Open!</div>
-            <div style={{ fontSize: 12, color: theme.gray500, marginTop: 2 }}>New 22-hour canyon tuna trips. Book now — popular trips fill fast.</div>
-          </div>
-        </div>
-      </div>
-
       {/* Featured Trips - with real photos and favorites */}
       <SectionHeader title="Featured Trips" subtitle="Hand-picked adventures" action="See All" onAction={() => onNavigate("trips")} />
       <div style={{ display: "flex", gap: 12, padding: "0 20px", overflowX: "auto", paddingBottom: 4 }}>
