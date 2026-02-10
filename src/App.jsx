@@ -720,6 +720,24 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
         </Card>
       </div>
 
+      {/* Angler of the Week */}
+      <div style={{ padding: "28px 20px 0" }}>
+        <SectionHeader title="Angler of the Week" />
+        <Card style={{ padding: 0, overflow: "hidden" }}>
+          <div style={{ height: 220, position: "relative", overflow: "hidden" }}>
+            <img src={PHOTOS.carl} alt="Carl" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)" }} />
+            <div style={{ position: "absolute", bottom: 14, left: 16, right: 16 }}>
+              <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, color: theme.gold }}>This Week's Champion</div>
+              <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginTop: 4 }}>Carl</div>
+            </div>
+          </div>
+          <div style={{ padding: "16px 18px" }}>
+            <div style={{ fontSize: 14, color: theme.gray600, lineHeight: 1.6 }}>Our angler of the week is Carl. Carl slurped down 20 hotdogs and caught 1 Porgie.</div>
+          </div>
+        </Card>
+      </div>
+
       {/* Quick Actions */}
       <div style={{ padding: "28px 20px 20px" }}>
         <SectionHeader title="Quick Actions" />
