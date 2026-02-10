@@ -473,7 +473,7 @@ const Button = ({ children, variant = "primary", size = "md", style, onClick, di
 };
 
 // ─── Home Screen ────────────────────────────────────────────────────────────
-const HomeScreen = ({ onNavigate, onSelectTrip }) => {
+const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies }) => {
   const featuredTrips = TRIPS.filter(t => [5, 2, 11].includes(t.id));
 
   return (
@@ -538,7 +538,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip }) => {
         <SectionHeader title="Target Species" subtitle="What's biting this season" />
         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 10, padding: "0 20px" }}>
           {SPECIES_INFO.slice(0, 6).map((sp, i) => (
-            <div key={i} style={{ borderRadius: 14, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)" }}>
+            <div key={i} onClick={() => onSelectSpecies(sp)} style={{ borderRadius: 14, overflow: "hidden", boxShadow: "0 2px 12px rgba(0,0,0,0.08)", cursor: "pointer" }}>
               <div style={{ height: 72, position: "relative", overflow: "hidden" }}>
                 <img src={sp.photo} alt={sp.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} onError={e => { e.target.style.display = "none"; }} />
                 <div style={{ position: "absolute", inset: 0, background: `linear-gradient(135deg, ${sp.color}, ${sp.color}CC)`, zIndex: -1, display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -1299,7 +1299,7 @@ export default function HelenHApp() {
     <div style={styles.outerWrap}>
       <div style={styles.appShell}>
         <div ref={scrollRef} style={styles.scrollArea}>
-          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} />}
+          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} />}
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
