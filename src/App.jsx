@@ -733,7 +733,7 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
 const TripsScreen = ({ onSelectTrip, favorites, onToggleFavorite }) => {
   const [filter, setFilter] = useState("all");
   const [sortBy, setSortBy] = useState("price-low");
-  const categories = [{ id: "all", label: "All Trips" }, { id: "favorites", label: "Saved" }, { id: "inshore", label: "Inshore" }, { id: "offshore", label: "Offshore" }, { id: "multi-day", label: "Multi-Day" }, { id: "cruise", label: "Cruises" }];
+  const categories = [{ id: "all", label: "All" }, { id: "favorites", label: "Saved" }, { id: "inshore", label: "Inshore" }, { id: "offshore", label: "Offshore" }, { id: "multi-day", label: "Multi-Day" }, { id: "cruise", label: "Cruises" }];
   let filtered = filter === "favorites" ? TRIPS.filter(t => favorites.has(t.id)) : filter === "all" ? TRIPS : TRIPS.filter(t => t.category === filter);
   if (sortBy === "price-low") filtered = [...filtered].sort((a, b) => a.price - b.price);
   if (sortBy === "price-high") filtered = [...filtered].sort((a, b) => b.price - a.price);
@@ -747,9 +747,9 @@ const TripsScreen = ({ onSelectTrip, favorites, onToggleFavorite }) => {
           <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>{filtered.length} trips available</div>
         </div>
       </WaveBackground>
-      <div style={{ display: "flex", gap: 8, padding: "0 20px", marginTop: -20, marginBottom: 16, overflowX: "auto", position: "relative", zIndex: 2 }}>
+      <div style={{ display: "flex", gap: 6, padding: "0 16px", marginTop: -20, marginBottom: 16, position: "relative", zIndex: 2 }}>
         {categories.map(c => (
-          <button key={c.id} onClick={() => setFilter(c.id)} style={{ padding: "8px 18px", borderRadius: 100, border: "none", background: filter === c.id ? theme.blue : theme.white, color: filter === c.id ? theme.white : theme.gray500, fontSize: 13, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", boxShadow: filter === c.id ? `0 4px 12px ${theme.blue}30` : "0 2px 8px rgba(0,0,0,0.06)", transition: "all 0.2s" }}>{c.label}</button>
+          <button key={c.id} onClick={() => setFilter(c.id)} style={{ flex: 1, padding: "8px 0", borderRadius: 100, border: "none", background: filter === c.id ? theme.blue : theme.white, color: filter === c.id ? theme.white : theme.gray500, fontSize: 12, fontWeight: 600, cursor: "pointer", whiteSpace: "nowrap", boxShadow: filter === c.id ? `0 4px 12px ${theme.blue}30` : "0 2px 8px rgba(0,0,0,0.06)", transition: "all 0.2s", textAlign: "center" }}>{c.label}</button>
         ))}
       </div>
       <div style={{ display: "flex", gap: 6, padding: "0 20px", marginBottom: 16, flexWrap: "wrap" }}>
