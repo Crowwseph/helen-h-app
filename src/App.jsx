@@ -601,9 +601,6 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
         </div>
       </div>
 
-      {/* Weather Widget */}
-      <WeatherWidget onClick={onOpenWeather} weather={weather} />
-
       {/* Featured Trips - with real photos and favorites */}
       <SectionHeader title="Featured Trips" subtitle="Hand-picked adventures" action="See All" onAction={() => onNavigate("trips")} />
       <div style={{ display: "flex", gap: 12, padding: "0 20px", overflowX: "auto", paddingBottom: 4 }}>
