@@ -372,31 +372,31 @@ const Icons = {
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 const TRIPS = [
-  { id: 1, name: "Spring Porgies & Black Sea Bass", vessel: "Helen H", duration: "6 hrs", schedule: "May–June", departure: "Hyannis, MA", departTime: "5:30 AM or 2:00 PM", capacity: 45, price: 110, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "Start the season right with Cape Cod's legendary humpback porgies. A 6-hour trip to some of the closest, most productive grounds in New England.", photo: PHOTOS.seabass, illustration: "porgy" },
-  { id: 2, name: "Offshore Nantucket Fluke", vessel: "Helen H", duration: "10 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM", capacity: 38, price: 230, rodRental: 20, species: ["Jumbo Fluke", "Black Sea Bass"], category: "offshore", desc: "Head to the prolific waters around Nantucket aboard one of the fastest party boats in New England for trophy fluke fishing.", photo: PHOTOS.fluke, illustration: "fluke" },
-  { id: 3, name: "George's Bank Haddock & Pollock", vessel: "Helen H", duration: "12 hrs", schedule: "Spring & Fall", departure: "Hyannis, MA", departTime: "5:00 AM", capacity: 32, price: 250, rodRental: 20, species: ["Haddock", "Pollock"], category: "offshore", desc: "A full-day expedition to the legendary George's Bank for open bottom fishing targeting haddock and pollock.", photo: PHOTOS.cod, illustration: "haddock" },
-  { id: 4, name: "Jeffery's Ledge Groundfish", vessel: "Angler", duration: "11 hrs", schedule: "Apr–May", departure: "Plymouth, MA", departTime: "6:00 AM", capacity: 28, price: 180, rodRental: 20, species: ["Pollock", "Haddock", "Redfish"], category: "offshore", desc: "Departing Plymouth Harbor for Jeffery's Ledge and Stellwagen Bank targeting pollock and haddock with redfish bycatch.", photo: PHOTOS.catch2, illustration: "pollock" },
-  { id: 5, name: "2-Day Tuna Ultra Limited", vessel: "Helen H", duration: "33 hrs", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 610, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "The ultimate offshore adventure — trolling by day, bait and jig fishing through the night in the canyons south of Cape Cod.", photo: PHOTOS.tuna, illustration: "tuna" },
-  { id: 6, name: "2-Day Extended Tuna", vessel: "Helen H", duration: "40 hrs", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "Midnight", capacity: 28, price: 675, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "Extended canyon trip with a midnight departure for maximum time on the water targeting pelagic species.", photo: PHOTOS.tuna4, illustration: "tuna" },
-  { id: 7, name: "3-Day Tuna Ultra Limited", vessel: "Helen H", duration: "3 days", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 760, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "Three days and two nights offshore — the pinnacle of New England party boat fishing with bait fishing and trolling.", photo: PHOTOS.tuna2, illustration: "tuna" },
-  { id: 8, name: "2-Day Nantucket Fluke", vessel: "Helen H", duration: "2 days", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 32, price: 535, rodRental: 20, species: ["Jumbo Fluke"], category: "multi-day", desc: "Two full days of fluke fishing around Nantucket and Nantucket Shoals returning to Hyannis each evening.", photo: PHOTOS.fluke3, illustration: "fluke" },
-  { id: 9, name: "2-Day Captain's Special", vessel: "Helen H", duration: "36 hrs", schedule: "Jun–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 560, rodRental: 20, species: ["Pollock", "Haddock", "Whiting", "Fluke", "Sea Bass"], category: "multi-day", desc: "The best of both worlds — pollock, haddock, and whiting one day, then Nantucket fluke and sea bass the next aboard one of New England's fastest boats.", photo: PHOTOS.catch3, illustration: "boat" },
-  { id: 10, name: "3-Day Giant Fluke Hunt", vessel: "Helen H", duration: "3 days", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 760, rodRental: 20, species: ["Trophy Fluke"], category: "multi-day", desc: "An epic fluke expedition with one night offshore and one night in Nantucket. The hunt for doormat fluke.", photo: PHOTOS.fluke2, illustration: "fluke" },
-  { id: 11, name: "Cape Cod Bay Flounder", vessel: "Starfish", duration: "6 hrs", schedule: "Apr–Sep", departure: "Barnstable Harbor", departTime: "6:00 AM or 1:00 PM", capacity: 12, price: 145, rodRental: 5, species: ["Jumbo Flounder", "Tautog"], category: "inshore", desc: "Intimate fishing experience on the 42' Starfish in Barnstable Harbor — perfect for all skill levels targeting jumbo flounder.", photo: PHOTOS.flounder, illustration: "flounder" },
-  { id: 12, name: "Striped Bass", vessel: "Starfish", duration: "6 hrs", schedule: "Jul–Aug", departure: "Barnstable Harbor", departTime: "6:00 AM or 1:00 PM", capacity: 8, price: 180, rodRental: 0, species: ["Striped Bass"], category: "inshore", desc: "Ultra-limited 8-person trip for striped bass on Cape Cod Bay. Rod rental included in your fare.", photo: PHOTOS.stripers, illustration: "bass" },
-  { id: 13, name: "Fall Groundfish", vessel: "Angler", duration: "11 hrs", schedule: "Oct–Dec", departure: "Plymouth, MA", departTime: "6:00 AM", capacity: 38, price: 180, rodRental: 20, species: ["Cod", "Pollock", "Haddock", "Redfish"], category: "offshore", desc: "Fall open bottom fishing on Jeffery’s Ledge or Stellwagen Bank. Fish all day targeting pollock and haddock with a bycatch of redfish. Cod also targeted in October.", photo: PHOTOS.groundfish1, illustration: "haddock" },
-  { id: 14, name: "Blackfish (Tautog)", vessel: "Capt. John & Son II", duration: "7 hrs", schedule: "Apr–May & Oct–Dec", departure: "Hyannis, MA", departTime: "7:00 AM", capacity: 25, price: 145, rodRental: 5, species: ["Tautog"], category: "inshore", desc: "7 hours of bottom fishing for blackfish on structures within Nantucket Sound aboard the 85’ Capt. John and Son II. Ultra low-capacity trips limited to 25 passengers.", photo: PHOTOS.tautog1, illustration: "tautog" },
-  { id: 15, name: "2-Day Nantucket Fluke Layover", vessel: "Helen H", duration: "2 days", schedule: "Jun–Aug", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 30, price: 590, rodRental: 20, species: ["Jumbo Fluke"], category: "multi-day", desc: "A 2-day ultra limited fluke trip fishing Nantucket and Nantucket Shoals. Tie up on Nantucket overnight — get a hotel, sleep on the boat, or head ashore for dinner.", photo: PHOTOS.fluke4, illustration: "fluke" },
-  { id: 16, name: "2-Day Fluke & Haddock/Pollock", vessel: "Helen H", duration: "2 days", schedule: "Aug", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 32, price: 535, rodRental: 20, species: ["Jumbo Fluke", "Haddock", "Pollock"], category: "multi-day", desc: "Two worlds in two days — jumbo fluke around Nantucket and Nantucket Shoals on day one, then haddock and pollock on George’s Bank day two. Returns to Hyannis each evening.", photo: PHOTOS.fluke5, illustration: "fluke" },
-  { id: 17, name: "Angler Offshore Nantucket Fluke", vessel: "Angler", duration: "10 hrs", schedule: "Jun–Aug", departure: "Hyannis, MA", departTime: "6:00 AM", capacity: 15, price: 285, rodRental: 20, species: ["Jumbo Fluke", "Black Sea Bass"], category: "offshore", desc: "Ultra low-capacity offshore fluke trip limited to just 15 passengers on the 75’ Angler. Fishing around Nantucket and Nantucket Shoals for jumbo fluke and black sea bass.", photo: PHOTOS.fluke6, illustration: "fluke" },
-  { id: 18, name: "Inshore Nantucket Fluke", vessel: "Nantucket Sound", duration: "8 hrs", schedule: "Jul–Sep", departure: "Hyannis, MA", departTime: "7:00 AM", capacity: 30, price: 155, rodRental: 5, species: ["Fluke", "Black Sea Bass"], category: "inshore", desc: "8-hour inshore trip fishing the grounds of Nantucket for fluke and sea bass aboard the 75’ Nantucket Sound. A great value for consistent inshore action.", photo: PHOTOS.fluke7, illustration: "fluke" },
-  { id: 19, name: "Nantucket Sound Canyons Tuna", vessel: "Nantucket Sound", duration: "22 hrs", schedule: "Jul–Aug", departure: "Hyannis, MA", departTime: "10:00 PM", capacity: 14, price: 500, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Big Eye", "Long Fin"], category: "multi-day", desc: "A 22-hour low-capacity canyon trip departing at night to arrive at sunrise for the daytime trolling bite. 8–10 hours of fishing time at the canyons targeting yellowfin, mahi-mahi, and more.", photo: PHOTOS.tuna6, illustration: "tuna" },
-  { id: 20, name: "4 Hour Porgy & Sea Bass", vessel: "Capt. John & Son II", duration: "4 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "8:00 AM or 12:00 PM", capacity: 80, price: 69, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "A 4-hour trip on the 90’ Capt. John & Son II fishing the protected waters of Nantucket Sound for scup and sea bass. A great way for families to experience fishing on Cape Cod.", photo: PHOTOS.scup1, illustration: "porgy" },
-  { id: 21, name: "3 Hour Family Fishing Special", vessel: "Capt. John & Son II", duration: "3 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "1:00 PM", capacity: 80, price: 39, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "The perfect introduction to fishing for all ages! A family-friendly 3-hour trip on the 90’ Capt. John & Son II targeting porgies and sea bass in Nantucket Sound. Bait and instruction included.", photo: PHOTOS.scup2, illustration: "porgy" },
-  { id: 22, name: "Live Music Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute sunset cruise featuring live music with Jimmy Buffett-style tunes, tropical hits, and coastal favorites. Full bar with cocktails, beer, wine, and light snacks from the galley.", photo: PHOTOS.captJohnEdited, illustration: "boat" },
-  { id: 23, name: "Luau Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute tropical luau party on the water. Hawaiian shirts and leis encouraged as you watch the sun set over Nantucket Sound with island vibes, tropical cocktails, and a curated playlist of reggae and summer favorites.", photo: PHOTOS.ferry, illustration: "boat" },
-  { id: 24, name: "Margarita Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute sunset cruise featuring refreshing margaritas — classic, frozen, or flavored. Watch the sun dip below the horizon over Nantucket Sound while enjoying great music, full bar, and light snacks.", photo: PHOTOS.sunset2, illustration: "boat" },
-  { id: 25, name: "Hyannis Harbor Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A relaxing 90-minute sunset cruise from Hyannis Harbor with stunning views as the sun sets over Nantucket Sound. Great music, full bar with cocktails, beer, and wine, and light snacks from the galley.", photo: PHOTOS.sunset1, illustration: "boat" },
+  { id: 1, bookingId: 2028, name: "Spring Porgies & Black Sea Bass", vessel: "Helen H", duration: "6 hrs", schedule: "May–June", departure: "Hyannis, MA", departTime: "5:30 AM or 2:00 PM", capacity: 45, price: 110, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "Start the season right with Cape Cod's legendary humpback porgies. A 6-hour trip to some of the closest, most productive grounds in New England.", photo: PHOTOS.seabass, illustration: "porgy" },
+  { id: 2, bookingId: 1970, name: "Offshore Nantucket Fluke", vessel: "Helen H", duration: "10 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM", capacity: 38, price: 230, rodRental: 20, species: ["Jumbo Fluke", "Black Sea Bass"], category: "offshore", desc: "Head to the prolific waters around Nantucket aboard one of the fastest party boats in New England for trophy fluke fishing.", photo: PHOTOS.fluke, illustration: "fluke" },
+  { id: 3, bookingId: 1972, name: "George's Bank Haddock & Pollock", vessel: "Helen H", duration: "12 hrs", schedule: "Spring & Fall", departure: "Hyannis, MA", departTime: "5:00 AM", capacity: 32, price: 250, rodRental: 20, species: ["Haddock", "Pollock"], category: "offshore", desc: "A full-day expedition to the legendary George's Bank for open bottom fishing targeting haddock and pollock.", photo: PHOTOS.cod, illustration: "haddock" },
+  { id: 4, bookingId: 1972, name: "Jeffery's Ledge Groundfish", vessel: "Angler", duration: "11 hrs", schedule: "Apr–May", departure: "Plymouth, MA", departTime: "6:00 AM", capacity: 28, price: 180, rodRental: 20, species: ["Pollock", "Haddock", "Redfish"], category: "offshore", desc: "Departing Plymouth Harbor for Jeffery's Ledge and Stellwagen Bank targeting pollock and haddock with redfish bycatch.", photo: PHOTOS.catch2, illustration: "pollock" },
+  { id: 5, bookingId: 1973, name: "2-Day Tuna Ultra Limited", vessel: "Helen H", duration: "33 hrs", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 610, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "The ultimate offshore adventure — trolling by day, bait and jig fishing through the night in the canyons south of Cape Cod.", photo: PHOTOS.tuna, illustration: "tuna" },
+  { id: 6, bookingId: 1973, name: "2-Day Extended Tuna", vessel: "Helen H", duration: "40 hrs", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "Midnight", capacity: 28, price: 675, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "Extended canyon trip with a midnight departure for maximum time on the water targeting pelagic species.", photo: PHOTOS.tuna4, illustration: "tuna" },
+  { id: 7, bookingId: 1973, name: "3-Day Tuna Ultra Limited", vessel: "Helen H", duration: "3 days", schedule: "Jul–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 760, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Swordfish", "Big Eye", "Long Fin"], category: "multi-day", desc: "Three days and two nights offshore — the pinnacle of New England party boat fishing with bait fishing and trolling.", photo: PHOTOS.tuna2, illustration: "tuna" },
+  { id: 8, bookingId: 1970, name: "2-Day Nantucket Fluke", vessel: "Helen H", duration: "2 days", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 32, price: 535, rodRental: 20, species: ["Jumbo Fluke"], category: "multi-day", desc: "Two full days of fluke fishing around Nantucket and Nantucket Shoals returning to Hyannis each evening.", photo: PHOTOS.fluke3, illustration: "fluke" },
+  { id: 9, bookingId: 1973, name: "2-Day Captain's Special", vessel: "Helen H", duration: "36 hrs", schedule: "Jun–Oct", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 560, rodRental: 20, species: ["Pollock", "Haddock", "Whiting", "Fluke", "Sea Bass"], category: "multi-day", desc: "The best of both worlds — pollock, haddock, and whiting one day, then Nantucket fluke and sea bass the next aboard one of New England's fastest boats.", photo: PHOTOS.catch3, illustration: "boat" },
+  { id: 10, bookingId: 1970, name: "3-Day Giant Fluke Hunt", vessel: "Helen H", duration: "3 days", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 28, price: 760, rodRental: 20, species: ["Trophy Fluke"], category: "multi-day", desc: "An epic fluke expedition with one night offshore and one night in Nantucket. The hunt for doormat fluke.", photo: PHOTOS.fluke2, illustration: "fluke" },
+  { id: 11, bookingId: 2430, name: "Cape Cod Bay Flounder", vessel: "Starfish", duration: "6 hrs", schedule: "Apr–Sep", departure: "Barnstable Harbor", departTime: "6:00 AM or 1:00 PM", capacity: 12, price: 145, rodRental: 5, species: ["Jumbo Flounder", "Tautog"], category: "inshore", desc: "Intimate fishing experience on the 42' Starfish in Barnstable Harbor — perfect for all skill levels targeting jumbo flounder.", photo: PHOTOS.flounder, illustration: "flounder" },
+  { id: 12, bookingId: 2428, name: "Striped Bass", vessel: "Starfish", duration: "6 hrs", schedule: "Jul–Aug", departure: "Barnstable Harbor", departTime: "6:00 AM or 1:00 PM", capacity: 8, price: 180, rodRental: 0, species: ["Striped Bass"], category: "inshore", desc: "Ultra-limited 8-person trip for striped bass on Cape Cod Bay. Rod rental included in your fare.", photo: PHOTOS.stripers, illustration: "bass" },
+  { id: 13, bookingId: 1972, name: "Fall Groundfish", vessel: "Angler", duration: "11 hrs", schedule: "Oct–Dec", departure: "Plymouth, MA", departTime: "6:00 AM", capacity: 38, price: 180, rodRental: 20, species: ["Cod", "Pollock", "Haddock", "Redfish"], category: "offshore", desc: "Fall open bottom fishing on Jeffery’s Ledge or Stellwagen Bank. Fish all day targeting pollock and haddock with a bycatch of redfish. Cod also targeted in October.", photo: PHOTOS.groundfish1, illustration: "haddock" },
+  { id: 14, bookingId: 1975, name: "Blackfish (Tautog)", vessel: "Capt. John & Son II", duration: "7 hrs", schedule: "Apr–May & Oct–Dec", departure: "Hyannis, MA", departTime: "7:00 AM", capacity: 25, price: 145, rodRental: 5, species: ["Tautog"], category: "inshore", desc: "7 hours of bottom fishing for blackfish on structures within Nantucket Sound aboard the 85’ Capt. John and Son II. Ultra low-capacity trips limited to 25 passengers.", photo: PHOTOS.tautog1, illustration: "tautog" },
+  { id: 15, bookingId: 1970, name: "2-Day Nantucket Fluke Layover", vessel: "Helen H", duration: "2 days", schedule: "Jun–Aug", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 30, price: 590, rodRental: 20, species: ["Jumbo Fluke"], category: "multi-day", desc: "A 2-day ultra limited fluke trip fishing Nantucket and Nantucket Shoals. Tie up on Nantucket overnight — get a hotel, sleep on the boat, or head ashore for dinner.", photo: PHOTOS.fluke4, illustration: "fluke" },
+  { id: 16, bookingId: 1970, name: "2-Day Fluke & Haddock/Pollock", vessel: "Helen H", duration: "2 days", schedule: "Aug", departure: "Hyannis, MA", departTime: "6:00 AM Day 1", capacity: 32, price: 535, rodRental: 20, species: ["Jumbo Fluke", "Haddock", "Pollock"], category: "multi-day", desc: "Two worlds in two days — jumbo fluke around Nantucket and Nantucket Shoals on day one, then haddock and pollock on George’s Bank day two. Returns to Hyannis each evening.", photo: PHOTOS.fluke5, illustration: "fluke" },
+  { id: 17, bookingId: 1970, name: "Angler Offshore Nantucket Fluke", vessel: "Angler", duration: "10 hrs", schedule: "Jun–Aug", departure: "Hyannis, MA", departTime: "6:00 AM", capacity: 15, price: 285, rodRental: 20, species: ["Jumbo Fluke", "Black Sea Bass"], category: "offshore", desc: "Ultra low-capacity offshore fluke trip limited to just 15 passengers on the 75’ Angler. Fishing around Nantucket and Nantucket Shoals for jumbo fluke and black sea bass.", photo: PHOTOS.fluke6, illustration: "fluke" },
+  { id: 18, bookingId: 1970, name: "Inshore Nantucket Fluke", vessel: "Nantucket Sound", duration: "8 hrs", schedule: "Jul–Sep", departure: "Hyannis, MA", departTime: "7:00 AM", capacity: 30, price: 155, rodRental: 5, species: ["Fluke", "Black Sea Bass"], category: "inshore", desc: "8-hour inshore trip fishing the grounds of Nantucket for fluke and sea bass aboard the 75’ Nantucket Sound. A great value for consistent inshore action.", photo: PHOTOS.fluke7, illustration: "fluke" },
+  { id: 19, bookingId: 1973, name: "Nantucket Sound Canyons Tuna", vessel: "Nantucket Sound", duration: "22 hrs", schedule: "Jul–Aug", departure: "Hyannis, MA", departTime: "10:00 PM", capacity: 14, price: 500, rodRental: 40, species: ["Yellowfin Tuna", "Mahi-Mahi", "Big Eye", "Long Fin"], category: "multi-day", desc: "A 22-hour low-capacity canyon trip departing at night to arrive at sunrise for the daytime trolling bite. 8–10 hours of fishing time at the canyons targeting yellowfin, mahi-mahi, and more.", photo: PHOTOS.tuna6, illustration: "tuna" },
+  { id: 20, bookingId: 2028, name: "4 Hour Porgy & Sea Bass", vessel: "Capt. John & Son II", duration: "4 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "8:00 AM or 12:00 PM", capacity: 80, price: 69, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "A 4-hour trip on the 90’ Capt. John & Son II fishing the protected waters of Nantucket Sound for scup and sea bass. A great way for families to experience fishing on Cape Cod.", photo: PHOTOS.scup1, illustration: "porgy" },
+  { id: 21, bookingId: 2028, name: "3 Hour Family Fishing Special", vessel: "Capt. John & Son II", duration: "3 hrs", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "1:00 PM", capacity: 80, price: 39, rodRental: 5, species: ["Porgies", "Black Sea Bass"], category: "inshore", desc: "The perfect introduction to fishing for all ages! A family-friendly 3-hour trip on the 90’ Capt. John & Son II targeting porgies and sea bass in Nantucket Sound. Bait and instruction included.", photo: PHOTOS.scup2, illustration: "porgy" },
+  { id: 22, bookingId: 2412, name: "Live Music Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute sunset cruise featuring live music with Jimmy Buffett-style tunes, tropical hits, and coastal favorites. Full bar with cocktails, beer, wine, and light snacks from the galley.", photo: PHOTOS.captJohnEdited, illustration: "boat" },
+  { id: 23, bookingId: 2412, name: "Luau Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute tropical luau party on the water. Hawaiian shirts and leis encouraged as you watch the sun set over Nantucket Sound with island vibes, tropical cocktails, and a curated playlist of reggae and summer favorites.", photo: PHOTOS.ferry, illustration: "boat" },
+  { id: 24, bookingId: 2412, name: "Margarita Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A 90-minute sunset cruise featuring refreshing margaritas — classic, frozen, or flavored. Watch the sun dip below the horizon over Nantucket Sound while enjoying great music, full bar, and light snacks.", photo: PHOTOS.sunset2, illustration: "boat" },
+  { id: 25, bookingId: 2412, name: "Hyannis Harbor Sunset Cruise", vessel: "Capt. John & Son II", duration: "90 min", schedule: "Jun–Sep", departure: "Hyannis, MA", departTime: "Evening", capacity: 80, price: 32, rodRental: 0, species: [], category: "cruise", desc: "A relaxing 90-minute sunset cruise from Hyannis Harbor with stunning views as the sun sets over Nantucket Sound. Great music, full bar with cocktails, beer, and wine, and light snacks from the galley.", photo: PHOTOS.sunset1, illustration: "boat" },
 ];
 
 const VESSELS = [
@@ -875,194 +875,7 @@ const TripDetailScreen = ({ trip, onBack, onBook, favorites, onToggleFavorite })
   );
 };
 
-// ─── Booking Screen ─────────────────────────────────────────────────────────
-const BookingScreen = ({ trip, onBack, onConfirm }) => {
-  const [guests, setGuests] = useState(1);
-  const [date, setDate] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [addRod, setAddRod] = useState(false);
-  const [step, setStep] = useState(1);
-  const [confirmed, setConfirmed] = useState(false);
-  const [errors, setErrors] = useState({});
-  const total = (trip.price * guests) + (addRod && trip.rodRental > 0 ? trip.rodRental * guests : 0);
-
-  const [availableDates] = useState(() => {
-    const dates = []; const now = new Date();
-    for (let i = 3; i < 60; i += 3) {
-      const d = new Date(now); d.setDate(d.getDate() + i);
-      if (d.getDay() !== 2) dates.push(d.toISOString().split("T")[0]);
-    }
-    return dates;
-  });
-
-  const validateStep2 = () => {
-    const errs = {};
-    if (!name.trim()) errs.name = "Name is required";
-    if (!email.trim()) errs.email = "Email is required";
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) errs.email = "Enter a valid email address";
-    if (!phone.trim()) errs.phone = "Phone number is required";
-    else if (phone.replace(/\D/g, "").length < 7) errs.phone = "Enter a valid phone number";
-    setErrors(errs);
-    return Object.keys(errs).length === 0;
-  };
-
-  const errorStyle = { fontSize: 12, color: theme.danger, marginTop: 4 };
-
-  const inputStyle = { width: "100%", padding: "14px 16px", borderRadius: 12, border: `1.5px solid ${theme.gray200}`, fontSize: 15, fontFamily: "inherit", background: theme.white, color: theme.navy, outline: "none", boxSizing: "border-box" };
-
-  if (confirmed) {
-    return (
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100%", padding: 32, textAlign: "center", background: theme.white }}>
-        <div style={{ width: 80, height: 80, borderRadius: "50%", background: `${theme.success}15`, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-          <Icons.Check size={40} color={theme.success} />
-        </div>
-        <div style={{ fontSize: 24, fontWeight: 800, color: theme.navy, marginBottom: 8 }}>Inquiry Submitted!</div>
-        <div style={{ fontSize: 15, color: theme.gray400, marginBottom: 24, lineHeight: 1.5 }}>Your request for the {trip.name} trip has been sent. Our crew will reach out to confirm availability and finalize your booking.</div>
-        <Card style={{ width: "100%", textAlign: "left", marginBottom: 20 }}>
-          {[{ l: "Trip", v: trip.name }, { l: "Date", v: date }, { l: "Guests", v: guests }].map((r, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${theme.gray100}` }}>
-              <span style={{ fontSize: 13, color: theme.gray400 }}>{r.l}</span><span style={{ fontSize: 13, fontWeight: 600, color: theme.navy }}>{r.v}</span>
-            </div>
-          ))}
-          <div style={{ display: "flex", justifyContent: "space-between", padding: "8px 0" }}>
-            <span style={{ fontSize: 14, fontWeight: 700, color: theme.navy }}>Total</span>
-            <span style={{ fontSize: 18, fontWeight: 800, color: theme.blue }}>${total}</span>
-          </div>
-        </Card>
-        <Button variant="primary" style={{ width: "100%" }} onClick={onConfirm}>Done</Button>
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <div style={{ background: theme.white, borderBottom: `1px solid ${theme.gray200}`, display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px 20px" }}>
-        <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4 }}><Icons.ChevronLeft size={20} color={theme.navy} /><span style={{ fontSize: 14, color: theme.navy }}>Back</span></div>
-        <span style={{ fontSize: 16, fontWeight: 700, color: theme.navy }}>Book Trip</span><span style={{ width: 60 }} />
-      </div>
-      {/* Progress */}
-      <div style={{ display: "flex", justifyContent: "center", gap: 8, padding: "16px 20px 8px" }}>
-        {[1, 2, 3].map(s => (
-          <div key={s} style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", background: step >= s ? theme.blue : theme.gray200, color: step >= s ? theme.white : theme.gray400, fontSize: 12, fontWeight: 700, transition: "all 0.3s" }}>{step > s ? <Icons.Check size={14} color={theme.white} /> : s}</div>
-            {s < 3 && <div style={{ width: 40, height: 2, background: step > s ? theme.blue : theme.gray200, borderRadius: 1 }} />}
-          </div>
-        ))}
-      </div>
-      <div style={{ display: "flex", justifyContent: "center", gap: 28, padding: "4px 20px 16px" }}>
-        {["Date & Guests", "Your Info", "Confirm"].map((l, i) => <span key={i} style={{ fontSize: 10, color: step === i + 1 ? theme.blue : theme.gray400, fontWeight: 600 }}>{l}</span>)}
-      </div>
-      {/* Trip summary */}
-      <div style={{ margin: "0 20px 16px", padding: "12px 16px", background: `${theme.blue}08`, borderRadius: 12, display: "flex", alignItems: "center", gap: 12 }}>
-        <div style={{ width: 42, height: 42, borderRadius: 10, overflow: "hidden", flexShrink: 0, position: "relative", background: `linear-gradient(135deg, ${theme.navy}, ${theme.blue})`, display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <FishIcon type={trip.illustration} size={30} />
-        </div>
-        <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 14, fontWeight: 700, color: theme.navy }}>{trip.name}</div>
-          <div style={{ fontSize: 12, color: theme.gray400 }}>{trip.vessel} · {trip.departure}</div>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div style={{ fontSize: 16, fontWeight: 800, color: theme.blue }}>${total}</div>
-          <div style={{ fontSize: 10, color: theme.gray400 }}>total</div>
-        </div>
-      </div>
-
-      {step === 1 && (
-        <div style={{ padding: "0 20px" }}>
-          <div style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 8 }}>Select Date</div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-            {availableDates.slice(0, 12).map(d => {
-              const dt = new Date(d + "T12:00:00");
-              return (
-                <div key={d} onClick={() => setDate(d)} style={{ width: 76, padding: "10px 0", borderRadius: 12, textAlign: "center", cursor: "pointer", border: `2px solid ${date === d ? theme.blue : theme.gray200}`, background: date === d ? `${theme.blue}08` : theme.white }}>
-                  <div style={{ fontSize: 10, color: theme.gray400, fontWeight: 600 }}>{dt.toLocaleString("en", { weekday: "short" })}</div>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: date === d ? theme.blue : theme.navy }}>{dt.getDate()}</div>
-                  <div style={{ fontSize: 10, color: theme.gray400 }}>{dt.toLocaleString("en", { month: "short" })}</div>
-                </div>
-              );
-            })}
-          </div>
-          <div style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 8 }}>Number of Guests</div>
-          <div style={{ display: "flex", alignItems: "center", gap: 16, marginBottom: 20 }}>
-            <div onClick={() => setGuests(Math.max(1, guests - 1))} style={{ width: 44, height: 44, borderRadius: 12, border: `1.5px solid ${theme.gray200}`, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}><Icons.Minus size={20} color={theme.gray400} /></div>
-            <span style={{ fontSize: 28, fontWeight: 800, color: theme.navy, minWidth: 40, textAlign: "center" }}>{guests}</span>
-            <div onClick={() => setGuests(Math.min(trip.capacity, guests + 1))} style={{ width: 44, height: 44, borderRadius: 12, border: `1.5px solid ${theme.gray200}`, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}><Icons.Plus size={20} color={theme.gray400} /></div>
-            <span style={{ fontSize: 12, color: theme.gray400 }}>Max {trip.capacity}</span>
-          </div>
-          {trip.rodRental > 0 && (
-            <>
-              <div style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 8 }}>Add-ons</div>
-              <Card onClick={() => setAddRod(!addRod)} style={{ display: "flex", alignItems: "center", gap: 14, padding: 14, marginBottom: 20, border: `2px solid ${addRod ? theme.blue : "transparent"}` }}>
-                <div style={{ width: 24, height: 24, borderRadius: 8, border: `2px solid ${addRod ? theme.blue : theme.gray300}`, background: addRod ? theme.blue : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>{addRod && <Icons.Check size={14} color={theme.white} />}</div>
-                <div style={{ flex: 1 }}><div style={{ fontSize: 14, fontWeight: 600, color: theme.navy }}>Rod & Reel Rental</div><div style={{ fontSize: 12, color: theme.gray400 }}>Shimano rod and reel combo</div></div>
-                <span style={{ fontSize: 15, fontWeight: 700, color: theme.blue }}>${trip.rodRental}/ea</span>
-              </Card>
-            </>
-          )}
-          <Button variant="primary" size="lg" style={{ width: "100%" }} onClick={() => setStep(2)} disabled={!date}>Continue</Button>
-        </div>
-      )}
-
-      {step === 2 && (
-        <div style={{ padding: "0 20px" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 14, marginBottom: 24 }}>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Full Name</label>
-              <input style={{ ...inputStyle, ...(errors.name ? { borderColor: theme.danger } : {}) }} value={name} onChange={e => { setName(e.target.value); if (errors.name) setErrors(prev => ({ ...prev, name: undefined })); }} placeholder="John Smith" />
-              {errors.name && <div style={errorStyle}>{errors.name}</div>}
-            </div>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Email</label>
-              <input style={{ ...inputStyle, ...(errors.email ? { borderColor: theme.danger } : {}) }} type="email" value={email} onChange={e => { setEmail(e.target.value); if (errors.email) setErrors(prev => ({ ...prev, email: undefined })); }} placeholder="john@example.com" />
-              {errors.email && <div style={errorStyle}>{errors.email}</div>}
-            </div>
-            <div>
-              <label style={{ fontSize: 13, fontWeight: 600, color: theme.gray500, marginBottom: 6, display: "block" }}>Phone</label>
-              <input style={{ ...inputStyle, ...(errors.phone ? { borderColor: theme.danger } : {}) }} type="tel" value={phone} onChange={e => { setPhone(e.target.value); if (errors.phone) setErrors(prev => ({ ...prev, phone: undefined })); }} placeholder="(508) 555-0123" />
-              {errors.phone && <div style={errorStyle}>{errors.phone}</div>}
-            </div>
-          </div>
-          <div style={{ display: "flex", gap: 10 }}>
-            <Button variant="ghost" size="lg" style={{ flex: 1 }} onClick={() => { setErrors({}); setStep(1); }}>Back</Button>
-            <Button variant="primary" size="lg" style={{ flex: 2 }} onClick={() => { if (validateStep2()) setStep(3); }}>Continue</Button>
-          </div>
-        </div>
-      )}
-
-      {step === 3 && (
-        <div style={{ padding: "0 20px" }}>
-          <Card style={{ marginBottom: 16 }}>
-            <div style={{ fontSize: 15, fontWeight: 700, color: theme.navy, marginBottom: 12 }}>Booking Summary</div>
-            {[
-              { l: "Trip", v: trip.name },
-              { l: "Date", v: new Date(date + "T12:00:00").toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric" }) },
-              { l: "Departure", v: trip.departTime },
-              { l: "Location", v: trip.departure },
-              { l: "Guests", v: guests },
-              ...(addRod ? [{ l: "Rod Rental", v: `${guests} x $${trip.rodRental}` }] : []),
-              { l: "Guest", v: name }, { l: "Email", v: email },
-            ].map((r, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${theme.gray100}` }}>
-                <span style={{ fontSize: 13, color: theme.gray400 }}>{r.l}</span><span style={{ fontSize: 13, fontWeight: 600, color: theme.navy }}>{r.v}</span>
-              </div>
-            ))}
-            <div style={{ display: "flex", justifyContent: "space-between", padding: "12px 0 4px", marginTop: 4 }}>
-              <span style={{ fontSize: 16, fontWeight: 700, color: theme.navy }}>Total</span>
-              <span style={{ fontSize: 22, fontWeight: 800, color: theme.blue }}>${total}</span>
-            </div>
-          </Card>
-          <div style={{ display: "flex", gap: 10 }}>
-            <Button variant="ghost" size="lg" style={{ flex: 1 }} onClick={() => setStep(2)}>Back</Button>
-            <Button variant="gold" size="lg" style={{ flex: 2 }} onClick={() => setConfirmed(true)} icon={<Icons.Check size={18} />}>Confirm Booking</Button>
-          </div>
-        </div>
-      )}
-      <div style={{ height: 20 }} />
-    </div>
-  );
-};
+// ─── Booking Screen (removed — now uses AttractionSuite direct links) ────────
 
 // ─── Fleet Screen ───────────────────────────────────────────────────────────
 const FleetScreen = ({ onSelectVessel }) => (
@@ -1707,7 +1520,7 @@ export default function HelenHApp() {
   const prevScreenRef = useRef("species");
   const selectSpecies = (sp) => { prevScreenRef.current = screen === "home" ? "home" : "species"; setSelectedSpecies(sp); setScreen("speciesDetail"); scrollRef.current?.scrollTo(0, 0); };
   const selectVessel = (v) => { setSelectedVessel(v); setScreen("vesselDetail"); scrollRef.current?.scrollTo(0, 0); };
-  const startBooking = () => { setScreen("booking"); scrollRef.current?.scrollTo(0, 0); };
+  const startBooking = () => { window.open(`https://booking.attractionsuite.com/Attraction/ec/selectTourDate.action?sid=C_Iccr191gU&productTypeId=${selectedTrip.bookingId}&calendarType=ProductTypeCalendar`, "_blank"); };
   const openGallery = () => { setScreen("gallery"); scrollRef.current?.scrollTo(0, 0); };
   const openMap = () => { setScreen("map"); scrollRef.current?.scrollTo(0, 0); };
   const openAnglers = () => { setScreen("anglers"); scrollRef.current?.scrollTo(0, 0); };
@@ -1727,7 +1540,6 @@ export default function HelenHApp() {
           {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} favorites={favorites} onToggleFavorite={toggleFavorite} />}
-          {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
           {screen === "fleet" && <FleetScreen onSelectVessel={selectVessel} />}
           {screen === "vesselDetail" && <VesselDetailScreen vessel={selectedVessel} onBack={() => { setScreen("fleet"); scrollRef.current?.scrollTo(0, 0); }} onSelectTrip={selectTrip} />}
           {screen === "species" && <SpeciesScreen onSelectSpecies={selectSpecies} />}
