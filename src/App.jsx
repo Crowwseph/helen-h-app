@@ -442,6 +442,15 @@ const GALLERY_PHOTOS = [
   { src: "vesselNantucketSound", caption: "Nantucket Sound — 75' Cruiser", category: "fleet" },
 ];
 
+const ANGLERS_OF_THE_WEEK = [
+  { name: "Carl", photo: "carl", date: "Feb 9, 2026", trip: "Spring Porgies & Black Sea Bass", catch: "1 Porgie", desc: "Our angler of the week is Carl. Carl slurped down 20 hotdogs and caught 1 Porgie.", current: true },
+  { name: "Big Mike DeLuca", photo: "catch1", date: "Feb 2, 2026", trip: "Offshore Nantucket Fluke", catch: "8.2 lb Doormat Fluke", desc: "Big Mike hauled in the biggest fluke of the season so far — an 8.2 lb doormat that had the whole boat cheering. He fought it for 10 minutes on light tackle." },
+  { name: "The Martinez Family", photo: "stripers", date: "Jan 26, 2026", trip: "Cape Cod Bay Flounder", catch: "14 Flounder (family total)", desc: "The Martinez family made their annual trip from Connecticut and absolutely crushed it. Mom, Dad, and three kids combined for 14 flounder — the kids outfished Dad by a mile." },
+  { name: "Captain Steve Briggs", photo: "tuna2", date: "Jan 19, 2026", trip: "2-Day Extended Tuna", catch: "52 lb Yellowfin", desc: "Retired Coast Guard Captain Steve Briggs landed a monster 52 lb yellowfin on the overnight canyon trip. Said it was the hardest fight of his 40 years on the water." },
+  { name: "Tommy \"Two Rods\" Nguyen", photo: "catch2", date: "Jan 12, 2026", trip: "George's Bank Haddock & Pollock", catch: "22 Haddock (boat record)", desc: "Tommy earned his nickname by somehow managing to hook fish on two rods simultaneously — twice. He finished with 22 haddock, a new single-angler boat record on the Helen H." },
+  { name: "Grandma Rose Chen", photo: "fluke2", date: "Jan 5, 2026", trip: "Offshore Nantucket Fluke", catch: "6.5 lb Fluke", desc: "At 78 years old, Grandma Rose showed up with her own custom rod and proceeded to out-fish everyone on the boat. Her 6.5 lb fluke was the catch of the day. She tipped the crew double." },
+];
+
 // ─── Theme (Helen H exact brand colors) ─────────────────────────────────────
 const theme = {
   blue: "#326BC5",       // Primary brand blue from website
@@ -557,7 +566,7 @@ const Button = ({ children, variant = "primary", size = "md", style, onClick, di
 };
 
 // ─── Home Screen ────────────────────────────────────────────────────────────
-const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenWeather, favorites, onToggleFavorite }) => {
+const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, onOpenMap, onOpenWeather, onOpenAnglers, favorites, onToggleFavorite }) => {
   const featuredTrips = TRIPS.filter(t => [5, 2, 11].includes(t.id));
   const [reviewIdx, setReviewIdx] = useState(0);
 
@@ -702,18 +711,18 @@ const HomeScreen = ({ onNavigate, onSelectTrip, onSelectSpecies, onOpenGallery, 
 
       {/* Angler of the Week */}
       <div style={{ padding: "28px 20px 0" }}>
-        <SectionHeader title="Angler of the Week" />
-        <Card style={{ padding: 0, overflow: "hidden" }}>
-          <div style={{ height: 220, position: "relative", overflow: "hidden" }}>
-            <img src={PHOTOS.carl} alt="Carl" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%)" }} />
-            <div style={{ position: "absolute", bottom: 14, left: 16, right: 16 }}>
+        <SectionHeader title="Angler of the Week" action="History" onAction={onOpenAnglers} />
+        <Card onClick={onOpenAnglers} style={{ padding: 0, overflow: "hidden", cursor: "pointer" }}>
+          <div style={{ position: "relative", overflow: "hidden", background: theme.navy }}>
+            <img src={PHOTOS.carl} alt="Carl" style={{ width: "100%", display: "block", maxHeight: 380, objectFit: "contain", objectPosition: "center" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 40%, transparent 70%)", padding: "40px 16px 14px" }}>
               <div style={{ fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: 1.5, color: theme.gold }}>This Week's Champion</div>
               <div style={{ fontSize: 20, fontWeight: 800, color: "white", marginTop: 4 }}>Carl</div>
             </div>
           </div>
-          <div style={{ padding: "16px 18px" }}>
-            <div style={{ fontSize: 14, color: theme.gray600, lineHeight: 1.6 }}>Our angler of the week is Carl. Carl slurped down 20 hotdogs and caught 1 Porgie.</div>
+          <div style={{ padding: "14px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ fontSize: 14, color: theme.gray600, lineHeight: 1.6, flex: 1 }}>Our angler of the week is Carl. Carl slurped down 20 hotdogs and caught 1 Porgie.</div>
+            <div style={{ fontSize: 13, fontWeight: 600, color: theme.blue, marginLeft: 12, whiteSpace: "nowrap" }}>See All ›</div>
           </div>
         </Card>
       </div>
@@ -1786,6 +1795,63 @@ const MapScreen = ({ onBack, onSelectTrip }) => {
   );
 };
 
+// ─── Angler of the Week Screen ──────────────────────────────────────────────
+const AnglerScreen = ({ onBack }) => {
+  const [expanded, setExpanded] = useState(0);
+  return (
+    <div>
+      <WaveBackground height={140}>
+        <div style={{ padding: "20px 20px 50px" }}>
+          <div onClick={onBack} style={{ cursor: "pointer", display: "flex", alignItems: "center", gap: 4, marginBottom: 12 }}>
+            <Icons.ChevronLeft size={20} color="white" /><span style={{ fontSize: 14, color: "white" }}>Back</span>
+          </div>
+          <div style={{ fontSize: 28, fontWeight: 800, color: theme.white }}>Angler of the Week</div>
+          <div style={{ fontSize: 14, color: "rgba(255,255,255,0.7)", marginTop: 4 }}>Hall of fame catches</div>
+        </div>
+      </WaveBackground>
+      <div style={{ padding: "0 20px", marginTop: -20, position: "relative", zIndex: 2 }}>
+        {ANGLERS_OF_THE_WEEK.map((angler, i) => (
+          <Card key={i} onClick={() => setExpanded(expanded === i ? -1 : i)} style={{ padding: 0, overflow: "hidden", marginBottom: 14, cursor: "pointer", border: angler.current ? `2px solid ${theme.gold}` : "none" }}>
+            {angler.current && (
+              <div style={{ background: `linear-gradient(90deg, ${theme.gold}, #D4A94E)`, padding: "6px 16px", display: "flex", alignItems: "center", gap: 6 }}>
+                <Icons.Star size={12} color="white" />
+                <span style={{ fontSize: 11, fontWeight: 700, color: "white", textTransform: "uppercase", letterSpacing: 1 }}>Current Champion</span>
+              </div>
+            )}
+            <div style={{ position: "relative", overflow: "hidden", background: theme.navy }}>
+              <img src={PHOTOS[angler.photo]} alt={angler.name} style={{ width: "100%", display: "block", height: expanded === i ? "auto" : 180, maxHeight: expanded === i ? 400 : 180, objectFit: expanded === i ? "contain" : "cover", objectPosition: "center", transition: "all 0.3s" }} />
+              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, background: "linear-gradient(to top, rgba(0,0,0,0.8), transparent)", padding: "30px 16px 12px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+                  <div>
+                    <div style={{ fontSize: 18, fontWeight: 800, color: "white" }}>{angler.name}</div>
+                    <div style={{ fontSize: 12, color: "rgba(255,255,255,0.6)", marginTop: 2 }}>{angler.date}</div>
+                  </div>
+                  <div style={{ background: "rgba(255,255,255,0.15)", backdropFilter: "blur(4px)", borderRadius: 8, padding: "4px 10px" }}>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: theme.gold }}>{angler.catch}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {expanded === i && (
+              <div style={{ padding: "16px 18px" }}>
+                <div style={{ fontSize: 12, fontWeight: 600, color: theme.blue, marginBottom: 6 }}>{angler.trip}</div>
+                <div style={{ fontSize: 14, color: theme.gray600, lineHeight: 1.6 }}>{angler.desc}</div>
+              </div>
+            )}
+            {expanded !== i && (
+              <div style={{ padding: "10px 18px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <div style={{ fontSize: 13, color: theme.gray500 }}>{angler.trip}</div>
+                <div style={{ fontSize: 12, fontWeight: 600, color: theme.blue }}>Read More ›</div>
+              </div>
+            )}
+          </Card>
+        ))}
+      </div>
+      <div style={{ height: 20 }} />
+    </div>
+  );
+};
+
 // ─── Main App ───────────────────────────────────────────────────────────────
 export default function HelenHApp() {
   const [tab, setTab] = useState("home");
@@ -1818,6 +1884,7 @@ export default function HelenHApp() {
   const openGallery = () => { setScreen("gallery"); scrollRef.current?.scrollTo(0, 0); };
   const openMap = () => { setScreen("map"); scrollRef.current?.scrollTo(0, 0); };
   const openWeather = () => { setScreen("weather"); scrollRef.current?.scrollTo(0, 0); };
+  const openAnglers = () => { setScreen("anglers"); scrollRef.current?.scrollTo(0, 0); };
 
   const tabs = [
     { id: "home", label: "Home", icon: Icons.Home },
@@ -1831,7 +1898,7 @@ export default function HelenHApp() {
     <div style={styles.outerWrap}>
       <div style={styles.appShell}>
         <div ref={scrollRef} style={styles.scrollArea}>
-          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenWeather={openWeather} favorites={favorites} onToggleFavorite={toggleFavorite} />}
+          {screen === "home" && <HomeScreen onNavigate={navigate} onSelectTrip={selectTrip} onSelectSpecies={selectSpecies} onOpenGallery={openGallery} onOpenMap={openMap} onOpenWeather={openWeather} onOpenAnglers={openAnglers} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "trips" && <TripsScreen onSelectTrip={selectTrip} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "detail" && <TripDetailScreen trip={selectedTrip} onBack={() => { setScreen("trips"); setTab("trips"); scrollRef.current?.scrollTo(0, 0); }} onBook={startBooking} favorites={favorites} onToggleFavorite={toggleFavorite} />}
           {screen === "booking" && <BookingScreen trip={selectedTrip} onBack={() => setScreen("detail")} onConfirm={() => navigate("home")} />}
@@ -1842,6 +1909,7 @@ export default function HelenHApp() {
           {screen === "gallery" && <GalleryScreen onBack={() => { navigate("home"); }} />}
           {screen === "map" && <MapScreen onBack={() => { navigate("home"); }} onSelectTrip={selectTrip} />}
           {screen === "weather" && <WeatherDetailScreen onBack={() => { navigate("home"); }} />}
+          {screen === "anglers" && <AnglerScreen onBack={() => { navigate("home"); }} />}
           {screen === "contact" && <ContactScreen />}
         </div>
         <div style={styles.tabBar}>
